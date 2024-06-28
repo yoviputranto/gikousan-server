@@ -5,18 +5,18 @@ module.exports={
         try {
             const user = await Admin.findByCredentials(req.body.email,req.body.password)
             const token = await user.generateAuthToken()
-            res.status(200).send({user,token})
+            res.status(200).send({success:true,token})
         }catch(e){
-            res.status(400).send(e)
+            res.status(400).send({success:false,message:e})
         }
     },
     logout: async(req, res)=>{
         try{
             req.user.tokens = []
             await req.user.save();
-            res.status(200).send(req.user)
+            res.status(200).send({success:true, message:"Logout successful"})
         }catch(e){
-            res.status(500).send()
+            res.status(500).send({success:false,message:e})
         }
     }
 }

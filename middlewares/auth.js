@@ -11,7 +11,7 @@ const auth = async(req,res,next) =>{
         req.user = user
         next();
     }catch(e){
-        res.status(404).send({error:"error in Authentication"})
+        res.status(404).send({success:false, message:e.message})
     }
 }
 
