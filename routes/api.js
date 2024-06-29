@@ -27,32 +27,32 @@ router.patch('/shop-category/:id',uploadSingle,shopCategoryController.editShopCa
 router.delete('/shop-category/:id',shopCategoryController.deleteShopCategory);
 
 //shop type
-router.get('/shop-type',shopTypeController.readShopType);
-router.get('/shop-type/:id',shopTypeController.readDetailShopType);
-router.post('/shop-type/', uploadSingle, shopTypeController.createShopType);
-router.patch('/shop-type/:id',uploadSingle,shopTypeController.editShopType);
-router.delete('/shop-type/:id',shopTypeController.deleteShopType);
+router.get('/shop-type',auth,shopTypeController.readShopType);
+router.get('/shop-type/:id',auth,shopTypeController.readDetailShopType);
+router.post('/shop-type/', uploadSingle, auth, shopTypeController.createShopType);
+router.patch('/shop-type/:id',uploadSingle, auth,shopTypeController.editShopType);
+router.delete('/shop-type/:id',auth,shopTypeController.deleteShopType);
 
 //admin
-router.get('/admin',adminController.readAdmin);
-router.get('/admin/:id',adminController.readDetailAdmin);
-router.post('/admin/', uploadSingle, adminController.createAdmin);
-router.patch('/admin/:id',uploadSingle,adminController.editAdmin);
-router.delete('/admin/:id',adminController.deleteAdmin);
+router.get('/admin',auth,adminController.readAdmin);
+router.get('/admin/:id',auth,adminController.readDetailAdmin);
+router.post('/admin/',auth, adminController.createAdmin);
+router.patch('/admin/:id',auth,adminController.editAdmin);
+router.delete('/admin/:id',auth,adminController.deleteAdmin);
 
 //customer
-router.get('/customer',customerController.readCustomer);
-router.get('/customer/:id',customerController.readDetailCustomer);
-router.post('/customer/', uploadSingle, customerController.createCustomer);
-router.patch('/customer/:id',uploadSingle,customerController.editCustomer);
-router.delete('/customer/:id',customerController.deleteCustomer);
+router.get('/customer',auth,customerController.readCustomer);
+router.get('/customer/:id',auth,customerController.readDetailCustomer);
+router.post('/customer/', auth,customerController.createCustomer);
+router.patch('/customer/:id',auth,customerController.editCustomer);
+router.delete('/customer/:id',auth,customerController.deleteCustomer);
 
 //payment method
-router.get('/payment-method',paymentMethodController.readPaymentMethod);
-router.get('/payment-method/:id',paymentMethodController.readDetailPaymentMethod);
-router.post('/payment-method/', uploadSingle, paymentMethodController.createPaymentMethod);
-router.patch('/payment-method/:id',uploadSingle,paymentMethodController.editPaymentMethod);
-router.delete('/payment-method/:id',paymentMethodController.deletePaymentMethod);
+router.get('/payment-method',auth,paymentMethodController.readPaymentMethod);
+router.get('/payment-method/:id',auth,paymentMethodController.readDetailPaymentMethod);
+router.post('/payment-method/',auth,uploadSingle,paymentMethodController.createPaymentMethod);
+router.patch('/payment-method/:id',auth,uploadSingle,paymentMethodController.editPaymentMethod);
+router.delete('/payment-method/:id',auth,paymentMethodController.deletePaymentMethod);
 
 //
 router.get('/transaction',transactionController.readTransaction);
