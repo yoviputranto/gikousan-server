@@ -10,8 +10,9 @@ const auth = async(req,res,next) =>{
         const token = req.header('Authorization').replace('Bearer ','')
         const decode = await jwt.verify(token,'gikousan')
         const user = await Admin.findOne({_id:decode._id,'tokens.token':token})
+        // console.log(user);
         if(!user)
-        throw new Error()
+        throw new Error("User Not Found")
         req.token = token
         req.user = user
         next();

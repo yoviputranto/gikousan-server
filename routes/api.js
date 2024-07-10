@@ -20,11 +20,11 @@ router.post('/logout',auth,authController.logout);
 
 
 //shop category
-router.get('/shop-category',shopCategoryController.readShopCategory);
-router.get('/shop-category/:id',shopCategoryController.readDetailShopCategory);
+router.get('/shop-category',auth,shopCategoryController.readShopCategory);
+router.get('/shop-category/:id',auth,shopCategoryController.readDetailShopCategory);
 router.post('/shop-category/',auth, uploadSingle, shopCategoryController.createShopCategory);
-router.patch('/shop-category/:id',uploadSingle,shopCategoryController.editShopCategory);
-router.delete('/shop-category/:id',shopCategoryController.deleteShopCategory);
+router.patch('/shop-category/:id',auth,uploadSingle,shopCategoryController.editShopCategory);
+router.delete('/shop-category/:id',auth,shopCategoryController.deleteShopCategory);
 
 //shop type
 router.get('/shop-type',auth,shopTypeController.readShopType);
@@ -55,25 +55,25 @@ router.patch('/payment-method/:id',auth,uploadSingle,paymentMethodController.edi
 router.delete('/payment-method/:id',auth,paymentMethodController.deletePaymentMethod);
 
 //
-router.get('/transaction',transactionController.readTransaction);
-router.get('/transaction/:id',transactionController.readDetailTransaction);
-router.post('/transaction/', uploadSingle, transactionController.createTransaction);
-router.patch('/transaction/:id',uploadSingle,transactionController.editTransaction);
-router.delete('/transaction/:id',transactionController.deleteTransaction);
+router.get('/transaction',auth,transactionController.readTransaction);
+router.get('/transaction/:id',auth,transactionController.readDetailTransaction);
+router.post('/transaction/',auth, uploadSingle, transactionController.createTransaction);
+router.patch('/transaction/:id',auth,uploadSingle,transactionController.editTransaction);
+router.delete('/transaction/:id',auth,transactionController.deleteTransaction);
 
 //shop category
-router.get('/transaction-detail',transactionDetailController.readTransactionDetail);
-router.get('/transaction-detail/:id',transactionDetailController.readDetailTransactionDetail);
-router.post('/transaction-detail/', uploadSingle, transactionDetailController.createTransactionDetail);
-router.patch('/transaction-detail/:id',uploadSingle,transactionDetailController.editTransactionDetail);
-router.delete('/transaction-detail/:id',transactionDetailController.deleteTransactionDetail);
+router.get('/transaction-detail',auth,transactionDetailController.readTransactionDetail);
+router.get('/transaction-detail/:id',auth,transactionDetailController.readDetailTransactionDetail);
+router.post('/transaction-detail/',auth, uploadSingle, transactionDetailController.createTransactionDetail);
+router.patch('/transaction-detail/:id',auth,uploadSingle,transactionDetailController.editTransactionDetail);
+router.delete('/transaction-detail/:id',auth,transactionDetailController.deleteTransactionDetail);
 
 //shop category
-router.get('/shopping',shoppingController.readShopping);
-router.get('/shopping/:id',shoppingController.readDetailShopping);
-router.post('/shopping/', uploadSingle, shoppingController.createShopping);
-router.patch('/shopping/:id',uploadSingle,shoppingController.editShopping);
-router.delete('/shopping/:id',shoppingController.deleteShopping);
+router.get('/shopping',auth,shoppingController.readShopping);
+router.get('/shopping/:id',auth,shoppingController.readDetailShopping);
+router.post('/shopping/',auth, uploadSingle, shoppingController.createShopping);
+router.patch('/shopping/:id',auth,uploadSingle,shoppingController.editShopping);
+router.delete('/shopping/:id',auth,shoppingController.deleteShopping);
 
 
 module.exports = router;

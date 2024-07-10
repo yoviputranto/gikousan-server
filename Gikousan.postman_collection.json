@@ -2,7 +2,7 @@
 	"info": {
 		"_postman_id": "3dd61379-6958-477c-9fbb-1d0cb5b1f520",
 		"name": "Gikousan",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
 		"_exporter_id": "15118773"
 	},
 	"item": [
@@ -14,13 +14,9 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjdlYTQ4YjMxYWYwNzBhYzk2ZGQ4ODIiLCJpYXQiOjE3MTk1ODI5NTd9.Yu8msXdp37QapPwsieD5gwzD-WSU2CEI2ibE9un4lBE",
-									"type": "string"
-								}
-							]
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjdlYTQ4YjMxYWYwNzBhYzk2ZGQ4ODIiLCJpYXQiOjE3MTk1ODI5NTd9.Yu8msXdp37QapPwsieD5gwzD-WSU2CEI2ibE9un4lBE"
+							}
 						},
 						"method": "POST",
 						"header": [],
@@ -33,18 +29,7 @@
 								}
 							}
 						},
-						"url": {
-							"raw": "{{url}}/api/v1/admin/",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"api",
-								"v1",
-								"admin",
-								""
-							]
-						}
+						"url": "{{url}}/api/v1/admin/"
 					},
 					"response": []
 				},
@@ -53,28 +38,13 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjdlYTQ4YjMxYWYwNzBhYzk2ZGQ4ODIiLCJpYXQiOjE3MTk1ODI5NTd9.Yu8msXdp37QapPwsieD5gwzD-WSU2CEI2ibE9un4lBE",
-									"type": "string"
-								}
-							]
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjdlYTQ4YjMxYWYwNzBhYzk2ZGQ4ODIiLCJpYXQiOjE3MTk1ODI5NTd9.Yu8msXdp37QapPwsieD5gwzD-WSU2CEI2ibE9un4lBE"
+							}
 						},
 						"method": "GET",
 						"header": [],
-						"url": {
-							"raw": "{{url}}/api/v1/admin/",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"api",
-								"v1",
-								"admin",
-								""
-							]
-						}
+						"url": "{{url}}/api/v1/admin/"
 					},
 					"response": []
 				},
@@ -83,28 +53,13 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjdlYTQ4YjMxYWYwNzBhYzk2ZGQ4ODIiLCJpYXQiOjE3MTk1ODI5NTd9.Yu8msXdp37QapPwsieD5gwzD-WSU2CEI2ibE9un4lBE",
-									"type": "string"
-								}
-							]
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjdlYTQ4YjMxYWYwNzBhYzk2ZGQ4ODIiLCJpYXQiOjE3MTk1ODI5NTd9.Yu8msXdp37QapPwsieD5gwzD-WSU2CEI2ibE9un4lBE"
+							}
 						},
 						"method": "GET",
 						"header": [],
-						"url": {
-							"raw": "{{url}}/api/v1/admin/667847fcdbcf2825bacfff91",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"api",
-								"v1",
-								"admin",
-								"667847fcdbcf2825bacfff91"
-							]
-						}
+						"url": "{{url}}/api/v1/admin/667847fcdbcf2825bacfff91"
 					},
 					"response": []
 				},
@@ -122,18 +77,7 @@
 								}
 							}
 						},
-						"url": {
-							"raw": "{{url}}/api/v1/admin/667847fcdbcf2825bacfff91",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"api",
-								"v1",
-								"admin",
-								"667847fcdbcf2825bacfff91"
-							]
-						}
+						"url": "{{url}}/api/v1/admin/667847fcdbcf2825bacfff91"
 					},
 					"response": []
 				},
@@ -142,18 +86,7 @@
 					"request": {
 						"method": "DELETE",
 						"header": [],
-						"url": {
-							"raw": "{{url}}/api/v1/admin/666db3d276bf33da037e34cf",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"api",
-								"v1",
-								"admin",
-								"666db3d276bf33da037e34cf"
-							]
-						}
+						"url": "{{url}}/api/v1/admin/666db3d276bf33da037e34cf"
 					},
 					"response": []
 				}
@@ -176,37 +109,22 @@
 								}
 							}
 						},
-						"url": {
-							"raw": "{{url}}/api/v1/shop-type",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"api",
-								"v1",
-								"shop-type"
-							]
-						}
+						"url": "{{url}}/api/v1/shop-type"
 					},
 					"response": []
 				},
 				{
 					"name": "Get All Shop Type",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjdlYTQ4YjMxYWYwNzBhYzk2ZGQ4ODIiLCJpYXQiOjE3MTk1ODI5NTd9.Yu8msXdp37QapPwsieD5gwzD-WSU2CEI2ibE9un4lBE"
+							}
+						},
 						"method": "GET",
 						"header": [],
-						"url": {
-							"raw": "{{url}}/api/v1/shop-type/",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"api",
-								"v1",
-								"shop-type",
-								""
-							]
-						}
+						"url": "{{url}}/api/v1/shop-type/"
 					},
 					"response": []
 				},
@@ -215,18 +133,7 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": {
-							"raw": "{{url}}/api/v1/shop-type/667d9745235e49c3ef68a27e",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"api",
-								"v1",
-								"shop-type",
-								"667d9745235e49c3ef68a27e"
-							]
-						}
+						"url": "{{url}}/api/v1/shop-type/667d9745235e49c3ef68a27e"
 					},
 					"response": []
 				},
@@ -244,18 +151,7 @@
 								}
 							}
 						},
-						"url": {
-							"raw": "{{url}}/api/v1/shop-type/667d9745235e49c3ef68a27e",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"api",
-								"v1",
-								"shop-type",
-								"667d9745235e49c3ef68a27e"
-							]
-						}
+						"url": "{{url}}/api/v1/shop-type/667d9745235e49c3ef68a27e"
 					},
 					"response": []
 				},
@@ -264,18 +160,7 @@
 					"request": {
 						"method": "DELETE",
 						"header": [],
-						"url": {
-							"raw": "{{url}}/api/v1/shop-type/667d9745235e49c3ef68a27e",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"api",
-								"v1",
-								"shop-type",
-								"667d9745235e49c3ef68a27e"
-							]
-						}
+						"url": "{{url}}/api/v1/shop-type/667d9745235e49c3ef68a27e"
 					},
 					"response": []
 				}
@@ -289,13 +174,9 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjdlYTQ4YjMxYWYwNzBhYzk2ZGQ4ODIiLCJpYXQiOjE3MTk1ODI5NTd9.Yu8msXdp37QapPwsieD5gwzD-WSU2CEI2ibE9un4lBE",
-									"type": "string"
-								}
-							]
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjdlYTQ4YjMxYWYwNzBhYzk2ZGQ4ODIiLCJpYXQiOjE3MTk1ODI5NTd9.Yu8msXdp37QapPwsieD5gwzD-WSU2CEI2ibE9un4lBE"
+							}
 						},
 						"method": "POST",
 						"header": [],
@@ -308,18 +189,7 @@
 								}
 							}
 						},
-						"url": {
-							"raw": "{{url}}/api/v1/customer/",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"api",
-								"v1",
-								"customer",
-								""
-							]
-						}
+						"url": "{{url}}/api/v1/customer/"
 					},
 					"response": []
 				},
@@ -328,28 +198,13 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjdlYTQ4YjMxYWYwNzBhYzk2ZGQ4ODIiLCJpYXQiOjE3MTk1ODI5NTd9.Yu8msXdp37QapPwsieD5gwzD-WSU2CEI2ibE9un4lBE",
-									"type": "string"
-								}
-							]
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjdlYTQ4YjMxYWYwNzBhYzk2ZGQ4ODIiLCJpYXQiOjE3MTk1ODI5NTd9.Yu8msXdp37QapPwsieD5gwzD-WSU2CEI2ibE9un4lBE"
+							}
 						},
 						"method": "GET",
 						"header": [],
-						"url": {
-							"raw": "{{url}}/api/v1/customer/",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"api",
-								"v1",
-								"customer",
-								""
-							]
-						}
+						"url": "{{url}}/api/v1/customer/"
 					},
 					"response": []
 				},
@@ -358,28 +213,13 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjdlYTQ4YjMxYWYwNzBhYzk2ZGQ4ODIiLCJpYXQiOjE3MTk1ODI5NTd9.Yu8msXdp37QapPwsieD5gwzD-WSU2CEI2ibE9un4lBE",
-									"type": "string"
-								}
-							]
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjdlYTQ4YjMxYWYwNzBhYzk2ZGQ4ODIiLCJpYXQiOjE3MTk1ODI5NTd9.Yu8msXdp37QapPwsieD5gwzD-WSU2CEI2ibE9un4lBE"
+							}
 						},
 						"method": "GET",
 						"header": [],
-						"url": {
-							"raw": "{{url}}/api/v1/customer/667ec628c7392a128279f26a",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"api",
-								"v1",
-								"customer",
-								"667ec628c7392a128279f26a"
-							]
-						}
+						"url": "{{url}}/api/v1/customer/667ec628c7392a128279f26a"
 					},
 					"response": []
 				},
@@ -388,13 +228,9 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjdlYTQ4YjMxYWYwNzBhYzk2ZGQ4ODIiLCJpYXQiOjE3MTk1ODI5NTd9.Yu8msXdp37QapPwsieD5gwzD-WSU2CEI2ibE9un4lBE",
-									"type": "string"
-								}
-							]
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjdlYTQ4YjMxYWYwNzBhYzk2ZGQ4ODIiLCJpYXQiOjE3MTk1ODI5NTd9.Yu8msXdp37QapPwsieD5gwzD-WSU2CEI2ibE9un4lBE"
+							}
 						},
 						"method": "PATCH",
 						"header": [],
@@ -407,18 +243,7 @@
 								}
 							}
 						},
-						"url": {
-							"raw": "{{url}}/api/v1/customer/667ec628c7392a128279f26a",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"api",
-								"v1",
-								"customer",
-								"667ec628c7392a128279f26a"
-							]
-						}
+						"url": "{{url}}/api/v1/customer/667ec628c7392a128279f26a"
 					},
 					"response": []
 				},
@@ -427,28 +252,13 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjdlYTQ4YjMxYWYwNzBhYzk2ZGQ4ODIiLCJpYXQiOjE3MTk1ODI5NTd9.Yu8msXdp37QapPwsieD5gwzD-WSU2CEI2ibE9un4lBE",
-									"type": "string"
-								}
-							]
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjdlYTQ4YjMxYWYwNzBhYzk2ZGQ4ODIiLCJpYXQiOjE3MTk1ODI5NTd9.Yu8msXdp37QapPwsieD5gwzD-WSU2CEI2ibE9un4lBE"
+							}
 						},
 						"method": "DELETE",
 						"header": [],
-						"url": {
-							"raw": "{{url}}/api/v1/customer/667ec628c7392a128279f26a",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"api",
-								"v1",
-								"customer",
-								"667ec628c7392a128279f26a"
-							]
-						}
+						"url": "{{url}}/api/v1/customer/667ec628c7392a128279f26a"
 					},
 					"response": []
 				}
@@ -462,13 +272,9 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjdlYTQ4YjMxYWYwNzBhYzk2ZGQ4ODIiLCJpYXQiOjE3MTk1ODI5NTd9.Yu8msXdp37QapPwsieD5gwzD-WSU2CEI2ibE9un4lBE",
-									"type": "string"
-								}
-							]
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjdlYTQ4YjMxYWYwNzBhYzk2ZGQ4ODIiLCJpYXQiOjE3MTk1ODI5NTd9.Yu8msXdp37QapPwsieD5gwzD-WSU2CEI2ibE9un4lBE"
+							}
 						},
 						"method": "POST",
 						"header": [],
@@ -493,22 +299,11 @@
 								{
 									"key": "image",
 									"type": "file",
-									"src": []
+									"src": "/Users/mac/Documents/Screenshot 2024-07-08 at 22.14.14.png"
 								}
 							]
 						},
-						"url": {
-							"raw": "{{url}}/api/v1/payment-method/",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"api",
-								"v1",
-								"payment-method",
-								""
-							]
-						}
+						"url": "{{url}}/api/v1/payment-method/"
 					},
 					"response": []
 				},
@@ -517,36 +312,28 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjdlYTQ4YjMxYWYwNzBhYzk2ZGQ4ODIiLCJpYXQiOjE3MTk1ODI5NTd9.Yu8msXdp37QapPwsieD5gwzD-WSU2CEI2ibE9un4lBE",
-									"type": "string"
-								}
-							]
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjdlYTQ4YjMxYWYwNzBhYzk2ZGQ4ODIiLCJpYXQiOjE3MTk1ODI5NTd9.Yu8msXdp37QapPwsieD5gwzD-WSU2CEI2ibE9un4lBE"
+							}
 						},
 						"method": "GET",
 						"header": [],
-						"url": {
-							"raw": "{{url}}/api/v1/payment-method/",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"api",
-								"v1",
-								"payment-method",
-								""
-							]
-						}
+						"url": "{{url}}/api/v1/payment-method/"
 					},
 					"response": []
 				},
 				{
 					"name": "Get Payment Method",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjdlYTQ4YjMxYWYwNzBhYzk2ZGQ4ODIiLCJpYXQiOjE3MTk1ODI5NTd9.Yu8msXdp37QapPwsieD5gwzD-WSU2CEI2ibE9un4lBE"
+							}
+						},
 						"method": "GET",
-						"header": []
+						"header": [],
+						"url": "{{url}}/api/v1/payment-method/667ed348693b0791b52fca0c"
 					},
 					"response": []
 				},
@@ -555,13 +342,9 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjdlYTQ4YjMxYWYwNzBhYzk2ZGQ4ODIiLCJpYXQiOjE3MTk1ODI5NTd9.Yu8msXdp37QapPwsieD5gwzD-WSU2CEI2ibE9un4lBE",
-									"type": "string"
-								}
-							]
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjdlYTQ4YjMxYWYwNzBhYzk2ZGQ4ODIiLCJpYXQiOjE3MTk1ODI5NTd9.Yu8msXdp37QapPwsieD5gwzD-WSU2CEI2ibE9un4lBE"
+							}
 						},
 						"method": "PATCH",
 						"header": [],
@@ -570,12 +353,12 @@
 							"formdata": [
 								{
 									"key": "name",
-									"value": "ShopeePay",
+									"value": "ApplePay",
 									"type": "text"
 								},
 								{
 									"key": "description",
-									"value": "Shopee",
+									"value": "Apple",
 									"type": "text"
 								},
 								{
@@ -585,18 +368,489 @@
 								}
 							]
 						},
-						"url": {
-							"raw": "{{url}}/api/v1/payment-method/667ed348693b0791b52fca0c",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"api",
-								"v1",
-								"payment-method",
-								"667ed348693b0791b52fca0c"
+						"url": "{{url}}/api/v1/payment-method/667ed348693b0791b52fca0c"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Payment Method",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjdlYTQ4YjMxYWYwNzBhYzk2ZGQ4ODIiLCJpYXQiOjE3MTk1ODI5NTd9.Yu8msXdp37QapPwsieD5gwzD-WSU2CEI2ibE9un4lBE"
+							}
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": "{{url}}/api/v1/payment-method/667ed348693b0791b52fca0c"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Shop Category",
+			"item": [
+				{
+					"name": "Create Shop Category",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjdlYTQ4YjMxYWYwNzBhYzk2ZGQ4ODIiLCJpYXQiOjE3MTk1ODI5NTd9.Yu8msXdp37QapPwsieD5gwzD-WSU2CEI2ibE9un4lBE"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "Category 2",
+									"type": "text"
+								},
+								{
+									"key": "shop_type_id",
+									"value": "6687a7be5a8625fc7c93f9aa",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/Users/mac/Downloads/Atas Kehadiran dan Do’a Restunya.png"
+								}
 							]
-						}
+						},
+						"url": "{{url}}/api/v1/shop-category"
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Shop Category",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjdlYTQ4YjMxYWYwNzBhYzk2ZGQ4ODIiLCJpYXQiOjE3MTk1ODI5NTd9.Yu8msXdp37QapPwsieD5gwzD-WSU2CEI2ibE9un4lBE"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "{{url}}/api/v1/shop-category"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Shop Category",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjdlYTQ4YjMxYWYwNzBhYzk2ZGQ4ODIiLCJpYXQiOjE3MTk1ODI5NTd9.Yu8msXdp37QapPwsieD5gwzD-WSU2CEI2ibE9un4lBE"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "{{url}}/api/v1/shop-category/6688e64df6b6e80f877d41e7"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Shop Category",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjdlYTQ4YjMxYWYwNzBhYzk2ZGQ4ODIiLCJpYXQiOjE3MTk1ODI5NTd9.Yu8msXdp37QapPwsieD5gwzD-WSU2CEI2ibE9un4lBE"
+							}
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "Category 3",
+									"type": "text"
+								},
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/Users/mac/Downloads/application.png"
+								}
+							]
+						},
+						"url": "{{url}}/api/v1/shop-category/6688e64df6b6e80f877d41e7"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Shop Category",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjdlYTQ4YjMxYWYwNzBhYzk2ZGQ4ODIiLCJpYXQiOjE3MTk1ODI5NTd9.Yu8msXdp37QapPwsieD5gwzD-WSU2CEI2ibE9un4lBE"
+							}
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": "{{url}}/api/v1/shop-category/6688e64df6b6e80f877d41e7"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Shopping",
+			"item": [
+				{
+					"name": "Create Shopping",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjdlYTQ4YjMxYWYwNzBhYzk2ZGQ4ODIiLCJpYXQiOjE3MTk1ODI5NTd9.Yu8msXdp37QapPwsieD5gwzD-WSU2CEI2ibE9un4lBE"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "price",
+									"value": "100000",
+									"type": "text"
+								},
+								{
+									"key": "product_name",
+									"value": "Product 2",
+									"type": "text"
+								},
+								{
+									"key": "product_qty",
+									"value": "5",
+									"type": "text"
+								},
+								{
+									"key": "category",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "shop_category_id",
+									"value": "6688e5e3f6b6e80f877d41d6",
+									"type": "text"
+								},
+								{
+									"key": "customer_id",
+									"value": "667ec695c7392a128279f26e",
+									"type": "text"
+								},
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/Users/mac/Documents/Screenshot 2024-07-08 at 22.14.14.png"
+								}
+							]
+						},
+						"url": "{{url}}/api/v1/shopping"
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Shopping",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjdlYTQ4YjMxYWYwNzBhYzk2ZGQ4ODIiLCJpYXQiOjE3MTk1ODI5NTd9.Yu8msXdp37QapPwsieD5gwzD-WSU2CEI2ibE9un4lBE"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "{{url}}/api/v1/shopping"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Shopping",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjdlYTQ4YjMxYWYwNzBhYzk2ZGQ4ODIiLCJpYXQiOjE3MTk1ODI5NTd9.Yu8msXdp37QapPwsieD5gwzD-WSU2CEI2ibE9un4lBE"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "{{url}}/api/v1/shopping/668d3191174b677d7e8181b3"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Shopping",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjdlYTQ4YjMxYWYwNzBhYzk2ZGQ4ODIiLCJpYXQiOjE3MTk1ODI5NTd9.Yu8msXdp37QapPwsieD5gwzD-WSU2CEI2ibE9un4lBE"
+							}
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "price",
+									"value": "150000",
+									"type": "text"
+								},
+								{
+									"key": "product_name",
+									"value": "Product 2",
+									"type": "text"
+								},
+								{
+									"key": "product_qty",
+									"value": "6",
+									"type": "text"
+								},
+								{
+									"key": "category",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "shop_category_id",
+									"value": "6688e5e3f6b6e80f877d41d6",
+									"type": "text"
+								},
+								{
+									"key": "customer_id",
+									"value": "667ec695c7392a128279f26e",
+									"type": "text"
+								}
+							]
+						},
+						"url": "{{url}}/api/v1/shopping/668d3191174b677d7e8181b3"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Shopping",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjdlYTQ4YjMxYWYwNzBhYzk2ZGQ4ODIiLCJpYXQiOjE3MTk1ODI5NTd9.Yu8msXdp37QapPwsieD5gwzD-WSU2CEI2ibE9un4lBE"
+							}
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": "{{url}}/api/v1/shopping/668d3191174b677d7e8181b3"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Transaction",
+			"item": [
+				{
+					"name": "Create Transaction",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjdlYTQ4YjMxYWYwNzBhYzk2ZGQ4ODIiLCJpYXQiOjE3MTk1ODI5NTd9.Yu8msXdp37QapPwsieD5gwzD-WSU2CEI2ibE9un4lBE"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"is_in\":true,\n    \"issued_at\" : \"09-07-2024\",\n    \"admin_id\" : \"667ea48b31af070ac96dd882\",\n    \"payment_method_id\": \"668dd46072a72a1556370587\",\n    \"customer_id\" : \"667ec695c7392a128279f26e\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{url}}/api/v1/transaction"
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Transaction",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjdlYTQ4YjMxYWYwNzBhYzk2ZGQ4ODIiLCJpYXQiOjE3MTk1ODI5NTd9.Yu8msXdp37QapPwsieD5gwzD-WSU2CEI2ibE9un4lBE"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "{{url}}/api/v1/transaction"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Transaction",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjdlYTQ4YjMxYWYwNzBhYzk2ZGQ4ODIiLCJpYXQiOjE3MTk1ODI5NTd9.Yu8msXdp37QapPwsieD5gwzD-WSU2CEI2ibE9un4lBE"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "{{url}}/api/v1/transaction/668dd5511360482fd8ab5bf3"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Transaction",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjdlYTQ4YjMxYWYwNzBhYzk2ZGQ4ODIiLCJpYXQiOjE3MTk1ODI5NTd9.Yu8msXdp37QapPwsieD5gwzD-WSU2CEI2ibE9un4lBE"
+							}
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"is_in\":true,\n    \"issued_at\" : \"07-15-2024\",\n    \"admin_id\" : \"667ea48b31af070ac96dd882\",\n    \"payment_method_id\": \"668dd46072a72a1556370587\",\n    \"customer_id\" : \"667ec695c7392a128279f26e\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{url}}/api/v1/transaction/668dd5511360482fd8ab5bf3"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Transaction",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjdlYTQ4YjMxYWYwNzBhYzk2ZGQ4ODIiLCJpYXQiOjE3MTk1ODI5NTd9.Yu8msXdp37QapPwsieD5gwzD-WSU2CEI2ibE9un4lBE"
+							}
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": "{{url}}/api/v1/transaction/668dd5511360482fd8ab5bf3"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Transaction Detail",
+			"item": [
+				{
+					"name": "Create Transaction Detail",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjdlYTQ4YjMxYWYwNzBhYzk2ZGQ4ODIiLCJpYXQiOjE3MTk1ODI5NTd9.Yu8msXdp37QapPwsieD5gwzD-WSU2CEI2ibE9un4lBE"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"paid_amount\":120000,\n    \"shop_name\":\"Shop 2\",\n    \"description\": null,\n    \"transaction_id\": \"668dd5831360482fd8ab5c1f\",\n    \"shopping_id\": \"668d3104174b677d7e81819b\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{url}}/api/v1/transaction-detail"
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Transaction Detail",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjdlYTQ4YjMxYWYwNzBhYzk2ZGQ4ODIiLCJpYXQiOjE3MTk1ODI5NTd9.Yu8msXdp37QapPwsieD5gwzD-WSU2CEI2ibE9un4lBE"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "{{url}}/api/v1/transaction-detail"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Transaction Detail",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjdlYTQ4YjMxYWYwNzBhYzk2ZGQ4ODIiLCJpYXQiOjE3MTk1ODI5NTd9.Yu8msXdp37QapPwsieD5gwzD-WSU2CEI2ibE9un4lBE"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "{{url}}/api/v1/transaction-detail/668de8085040b60d20f3d231"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Transaction Detail",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjdlYTQ4YjMxYWYwNzBhYzk2ZGQ4ODIiLCJpYXQiOjE3MTk1ODI5NTd9.Yu8msXdp37QapPwsieD5gwzD-WSU2CEI2ibE9un4lBE"
+							}
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"paid_amount\":120000,\n    \"shop_name\":\"Shop 3\",\n    \"description\": null,\n    \"transaction_id\": \"668dd5831360482fd8ab5c1f\",\n    \"shopping_id\": \"668d3104174b677d7e81819b\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{url}}/api/v1/transaction-detail/668de8085040b60d20f3d231"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Transaction Detail",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjdlYTQ4YjMxYWYwNzBhYzk2ZGQ4ODIiLCJpYXQiOjE3MTk1ODI5NTd9.Yu8msXdp37QapPwsieD5gwzD-WSU2CEI2ibE9un4lBE"
+							}
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": "{{url}}/api/v1/transaction-detail/668de8085040b60d20f3d231"
 					},
 					"response": []
 				}
@@ -616,18 +870,7 @@
 						}
 					}
 				},
-				"url": {
-					"raw": "{{url}}/api/v1/login/",
-					"host": [
-						"{{url}}"
-					],
-					"path": [
-						"api",
-						"v1",
-						"login",
-						""
-					]
-				}
+				"url": "{{url}}/api/v1/login/"
 			},
 			"response": []
 		},
@@ -636,13 +879,9 @@
 			"request": {
 				"auth": {
 					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjdlYTQ4YjMxYWYwNzBhYzk2ZGQ4ODIiLCJpYXQiOjE3MTk1ODI1MzV9.70-XIn2CRZZde56q3WJAnKIRW81hdBJuAk0SWu4MdpU",
-							"type": "string"
-						}
-					]
+					"bearer": {
+						"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjdlYTQ4YjMxYWYwNzBhYzk2ZGQ4ODIiLCJpYXQiOjE3MjA1NzcxNjB9.tf_4ccAOoTa0deS6vMHTPHnZnUcz7TTKKpr5s55ssoQ"
+					}
 				},
 				"method": "POST",
 				"header": [],
@@ -655,22 +894,17 @@
 						}
 					}
 				},
-				"url": {
-					"raw": "{{url}}/api/v1/logout/",
-					"host": [
-						"{{url}}"
-					],
-					"path": [
-						"api",
-						"v1",
-						"logout",
-						""
-					]
-				}
+				"url": "{{url}}/api/v1/logout/"
 			},
 			"response": []
 		}
 	],
+	"auth": {
+		"type": "bearer",
+		"bearer": {
+			"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjdlYTQ4YjMxYWYwNzBhYzk2ZGQ4ODIiLCJpYXQiOjE3MjA1NzcyNTl9.eSGyfl9NIErBJA9tWLIwN_2vjl4C1r61m8K493rO8uQ"
+		}
+	},
 	"event": [
 		{
 			"listen": "prerequest",

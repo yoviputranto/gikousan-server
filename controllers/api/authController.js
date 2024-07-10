@@ -5,7 +5,8 @@ module.exports={
         try {
             const user = await Admin.findByCredentials(req.body.email,req.body.password)
             const token = await user.generateAuthToken()
-            res.status(200).send({success:true,token})
+            console.log(user);
+            res.status(200).send({success:true,token:token,username: user.name})
         }catch(e){
             res.status(400).send({success:false,message:e})
         }

@@ -47,17 +47,33 @@ module.exports = {
 
     editPaymentMethod: async(req,res)=>{
         try{
-            const body = req.body;
-            
+            const {
+                name,
+                description,
+                is_active
+            } = req.body;
             console.log(req.body);
             const dataPaymentMethod = await PaymentMethod.findById(req.params.id);
-            console.log(dataPaymentMethod);
-            console.log(req.file);
+            //console.log(dataPaymentMethod);
+            //console.log(req.file);
+            let icon = '';
             if(req.file != undefined){
                 await fs.unlink(path.join(`public/${dataPaymentMethod.icon}`));
-                body.icon = `images/${req.file.filename}`
+                icon = `images/${req.file.filename}`
+            }else{
+                icon = dataPaymentMethod.icon
             }
-            const data = await PaymentMethod.findByIdAndUpdate({_id:req.params.id},body,{new:true});
+            const paymentmethod = {
+                name : name,
+                description : description,
+                is_active : is_active,
+                icon : icon
+            }
+            const validation = new Validator(paymentmethod,validationRules);
+            if (validation.fails()) {
+                return res.status(400).json({success : false, message:validation.errors.all()});
+            }
+            const data = await PaymentMethod.findByIdAndUpdate({_id:req.params.id},paymentmethod,{new:true});
             return res.status(200).json({success:true,data});
         }catch(error){
             console.log(error);

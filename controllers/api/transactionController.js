@@ -4,7 +4,15 @@ const PaymentMethod = require('../../models/PaymentMethod');
 const Customer = require('../../models/Customer');
 const fs = require('fs-extra');
 const path = require('path');
+const Validator = require('validatorjs');
 
+const validationRules = {
+    is_in: 'required|boolean',
+    issued_at: 'date',
+    payment_method_id:'required',
+    customer_id:'required',
+    admin_id:'required'
+};
 module.exports= {
     createTransaction: async(req,res)=>{
         try{
@@ -16,40 +24,38 @@ module.exports= {
                 customer_id
             } = req.body;
             
-            if(is_in == null || admin_id == null){
-                return res.status(404).json({message:"Please fill all field"});
-            }
-
-            const admin = await Admin.findOne({_id : admin_id});
-            if(!admin){
-                return res.status(404).json({ message:"Admin not found"});
-            }
-
-            const paymentmethod = await PaymentMethod.findById(payment_method_id);
-            if(!paymentmethod){
-                return res.status(404).json({message:"Payment Method not found"});
-            }
-
-            const customer = await Customer.findById(customer_id);
-            if(!customer){
-                return res.status(404).json({message:"Customer not found"});
-            }
-            
             const dataTransaction = {
                 is_in : is_in,
                 issued_at : issued_at,
-                batch : batch,
                 admin_id : admin_id,
                 payment_method_id : payment_method_id,
                 customer_id : customer_id
             }
+            const validation = new Validator(dataTransaction,validationRules);
+            if (validation.fails()) {
+                return res.status(400).json({success : false, message:validation.errors.all()});
+            }
+            const admin = await Admin.findOne({_id : admin_id});
+            if(!admin){
+                return res.status(404).json({ success: false, message:"Admin not found"});
+            }
+
+            const paymentmethod = await PaymentMethod.findById(payment_method_id);
+            if(!paymentmethod){
+                return res.status(404).json({success: false, message:"Payment Method not found"});
+            }
+
+            const customer = await Customer.findById(customer_id);
+            if(!customer){
+                return res.status(404).json({success: false, message:"Customer not found"});
+            }
     
-            const transaction = await Transaction.create(dataTransaction);
+            const data = await Transaction.create(dataTransaction);
     
-            res.status(201).json({ message : "Data created", transaction});
+            res.status(201).json({ success: true, message : "Data created", data});
         }catch(error){
             console.log(error);
-            return res.status(500).json({message : " Internal Server Error"});
+            return res.status(500).json({success: false, message : " Internal Server Error"});
         }
         
 
@@ -58,16 +64,50 @@ module.exports= {
 
     editTransaction: async(req,res)=>{
         try{
-            const body = req.body;
+            const{
+                is_in,
+                issued_at,
+                admin_id,
+                payment_method_id,
+                customer_id
+            } = req.body;
             
-            console.log(req.body);
+            const transaction = {
+                is_in : is_in,
+                issued_at : issued_at,
+                admin_id : admin_id,
+                payment_method_id : payment_method_id,
+                customer_id : customer_id
+            }
+            const validation = new Validator(transaction,validationRules);
+            if (validation.fails()) {
+                return res.status(400).json({success : false, message:validation.errors.all()});
+            }
             const dataTransaction = await Transaction.findById(req.params.id);
+            if(!dataTransaction){
+                return res.status(404).json({success: false, message:"Transaction not found"});
+            }
+            const admin = await Admin.findOne({_id : admin_id});
+            if(!admin){
+                return res.status(404).json({ success: false, message:"Admin not found"});
+            }
+
+            const paymentmethod = await PaymentMethod.findById(payment_method_id);
+            if(!paymentmethod){
+                return res.status(404).json({success: false, message:"Payment Method not found"});
+            }
+
+            const customer = await Customer.findById(customer_id);
+            if(!customer){
+                return res.status(404).json({success: false, message:"Customer not found"});
+            }
+            
             console.log(dataTransaction);
-            const Transaction = await Transaction.findByIdAndUpdate({_id:req.params.id},body,{new:true});
-            return res.status(200).json(Transaction);
+            const data = await Transaction.findByIdAndUpdate({_id:req.params.id},transaction,{new:true});
+            return res.status(200).json({success: true, data});
         }catch(error){
             console.log(error);
-            return res.status(500).json({message: "Internal Server Error"});
+            return res.status(500).json({success: false, message: "Internal Server Error"});
         }
         
     },
@@ -79,35 +119,35 @@ module.exports= {
             if(!data){
                 return res.status(404).json({message:"Data not found"});
             }
-            return res.status(200).json(data);
+            return res.status(200).json({success: true, data});
         }catch(error){
             console.log(error);
-            res.status(500).json({message:"Internal Server Error"});
+            res.status(500).json({success: false, message:"Internal Server Error"});
         }
     },
 
-    readTransaction: async(res)=>{
+    readTransaction: async(req,res)=>{
         try{
             const data = await Transaction.find();
             console.log(data);
             if(!data){
                 return res.status(404).json({message:"Data not found"});
             }
-            return res.status(200).json(data);
+            return res.status(200).json({success: true, data});
         }catch(error){
             console.log(error);
-            res.status(500).json({message:"Internal Server Error"});
+            res.status(500).json({success: false, message:"Internal Server Error"});
         }
     },
 
     deleteTransaction: async(req,res)=>{
         try{
-            const data = await Transaction.findById(req.params.id);
+            // const data = await Transaction.findById(req.params.id);
             const transaction = await Transaction.findByIdAndDelete(req.params.id);
-            res.status(200).json({message:"Data deleted"});
+            res.status(200).json({success: true, message:"Data deleted"});
         }catch(error){
             console.log(error);
-            res.status(500).json({message:"Internal Server Error"});
+            res.status(500).json({success: false, message:"Internal Server Error"});
         }
     }
 }

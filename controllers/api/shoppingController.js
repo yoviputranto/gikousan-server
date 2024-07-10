@@ -3,6 +3,16 @@ const ShopCategory = require('../../models/ShopCategory');
 const Customer = require('../../models/Customer');
 const fs = require('fs-extra');
 const path = require('path');
+const Validator = require('validatorjs');
+
+const validationRules = {
+    price: 'required|integer',
+    product_name: 'string',
+    product_qty: 'integer',
+    category:'string',
+    shop_category_id:'required',
+    customer_id:'required'
+};
 
 module.exports= {
     createShopping: async(req,res)=>{
@@ -16,8 +26,20 @@ module.exports= {
                 category
             } = req.body;
             
-            if(price == null || product_qty == null){
-                return res.status(404).json({message:"Please fill all field"});
+            const dataShopping = {
+                price : price,
+                product_name : product_name,
+                product_qty : product_qty,
+                shop_category_id : shop_category_id,
+                customer_id : customer_id,
+                category : category
+            }
+            const validation = new Validator(dataShopping,validationRules);
+            if (validation.fails()) {
+                return res.status(400).json({success : false, message:validation.errors.all()});
+            }
+            if(req.file != undefined){
+                dataShopping.product_image = `images/${req.file.filename}`;
             }
 
             const shopcategory = await ShopCategory.findOne({_id : shop_category_id});
@@ -29,23 +51,13 @@ module.exports= {
             if(!customer){
                 return res.status(404).json({message:"Shopping not found"});
             }
-            
-            const dataShopping = {
-                price : price,
-                product_name : product_name,
-                batch : batch,
-                product_qty : product_qty,
-                shop_category_id : shop_category_id,
-                customer_id : customer_id,
-                category : category
-            }
     
-            const shopping = await Shopping.create(dataShopping);
+            const data = await Shopping.create(dataShopping);
     
-            res.status(201).json({ message : "Data created", shopping});
+            res.status(201).json({ success: true, message : "Data created", data});
         }catch(error){
             console.log(error);
-            return res.status(500).json({message : " Internal Server Error"});
+            return res.status(500).json({success: false, message : " Internal Server Error"});
         }
         
 
@@ -54,16 +66,47 @@ module.exports= {
 
     editShopping: async(req,res)=>{
         try{
-            const body = req.body;
+            const{
+                price,
+                product_name,
+                product_qty,
+                shop_category_id,
+                customer_id,
+                category
+            } = req.body;
             
-            console.log(req.body);
+            const shopping = {
+                price : price,
+                product_name : product_name,
+                product_qty : product_qty,
+                shop_category_id : shop_category_id,
+                customer_id : customer_id,
+                category : category
+            }
+            const validation = new Validator(shopping,validationRules);
+            if (validation.fails()) {
+                return res.status(400).json({success : false, message:validation.errors.all()});
+            }
+
             const dataShopping = await Shopping.findById(req.params.id);
-            console.log(dataShopping);
-            const Shopping = await Shopping.findByIdAndUpdate({_id:req.params.id},body,{new:true});
-            return res.status(200).json(Shopping);
+            if(!dataShopping){
+                return res.status(404).json({success:false, message:"shopping not found"});
+            }
+            
+            let product_image = '';
+            if(req.file != undefined && dataShopping.product_image != null){
+                await fs.unlink(path.join(`public/${dataShopping.product_image}`));
+                product_image = `images/${req.file.filename}`
+                shopping.product_image = product_image;
+            }else if(dataShopping.product_image != null){
+                product_image = dataShopping.product_image
+                shopping.product_image = product_image;
+            }
+            const data = await Shopping.findByIdAndUpdate({_id:req.params.id},shopping,{new:true});
+            return res.status(200).json({success: true, data});
         }catch(error){
             console.log(error);
-            return res.status(500).json({message: "Internal Server Error"});
+            return res.status(500).json({success: false, message: "Internal Server Error"});
         }
         
     },
@@ -73,37 +116,38 @@ module.exports= {
             const data = await Shopping.findById(req.params.id);
             console.log(data);
             if(!data){
-                return res.status(404).json({message:"Data not found"});
+                return res.status(404).json({success:false,message:"Data not found"});
             }
-            return res.status(200).json(data);
+            return res.status(200).json({success:true,data});
         }catch(error){
             console.log(error);
-            res.status(500).json({message:"Internal Server Error"});
+            res.status(500).json({success:false,message:"Internal Server Error"});
         }
     },
 
-    readShopping: async(res)=>{
+    readShopping: async(req,res)=>{
         try{
             const data = await Shopping.find();
             console.log(data);
             if(!data){
-                return res.status(404).json({message:"Data not found"});
+                return res.status(404).json({success:false,message:"Data not found"});
             }
-            return res.status(200).json(data);
+            return res.status(200).json({succes:true,data});
         }catch(error){
             console.log(error);
-            res.status(500).json({message:"Internal Server Error"});
+            res.status(500).json({success:false,message:"Internal Server Error"});
         }
     },
 
     deleteShopping: async(req,res)=>{
         try{
             const data = await Shopping.findById(req.params.id);
+            await fs.unlink(path.join(`public/${data.product_image}`))
             const shopping = await Shopping.findByIdAndDelete(req.params.id);
-            res.status(200).json({message:"Data deleted"});
+            res.status(200).json({success: true, message:"Data deleted"});
         }catch(error){
             console.log(error);
-            res.status(500).json({message:"Internal Server Error"});
+            res.status(500).json({success: false, message:"Internal Server Error"});
         }
     }
 }
