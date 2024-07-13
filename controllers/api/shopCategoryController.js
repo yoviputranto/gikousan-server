@@ -63,13 +63,6 @@ module.exports= {
             } = req.body;
             
             console.log(req.body);
-            if(shop_type_id != null){
-                const shoptype = await ShopType.findOne({_id : shop_type_id});
-                if(!shoptype){
-                    return res.status(404).json({success:false, message:"shoptype not found"});
-                }
-            }
-            
             
             const shopcategory = {
                 name : name,
@@ -81,6 +74,10 @@ module.exports= {
             const validation = new Validator(shopcategory,validationRules);
             if (validation.fails()) {
                 return res.status(400).json({success : false, message:validation.errors.all()});
+            }
+            const shoptype = await ShopType.findOne({_id : shop_type_id});
+            if(!shoptype){
+                return res.status(404).json({success:false, message:"shoptype not found"});
             }
             const dataShopCategory = await ShopCategory.findById(req.params.id);
             if(!dataShopCategory){
@@ -111,9 +108,9 @@ module.exports= {
         try{
             const data = await ShopCategory.findById(req.params.id);
             console.log(data);
-            if(!data){
-                return res.status(404).json({success:false,message:"Data not found"});
-            }
+            // if(!data){
+            //     return res.status(404).json({success:false,message:"Data not found"});
+            // }
             return res.status(200).json({success:true,data});
         }catch(error){
             console.log(error);
@@ -123,12 +120,22 @@ module.exports= {
 
     readShopCategory: async(req,res)=>{
         try{
-            const data = await ShopCategory.find();
+            const page = parseInt(req.query.page,10);
+            const pageSize = parseInt(req.query.pageSize,10);
+            const data = await ShopCategory.find()
+                .skip((page > 0 ? page - 1 : page)*pageSize)
+                .limit(pageSize);
+            const count = await ShopCategory.countDocuments();
             console.log(data);
-            if(!data){
-                return res.status(404).json({success:false,message:"Data not found"});
-            }
-            return res.status(200).json({succes:true,data});
+            // if(data.length == 0){
+            //     return res.status(404).json({success: false, message:"Data not found"});
+            // }
+            return res.status(200).json({
+                success:true, 
+                data, 
+                totalPages:Math.ceil(count/pageSize),
+                page: page
+            });
         }catch(error){
             console.log(error);
             res.status(500).json({success:false,message:"Internal Server Error"});
@@ -138,7 +145,10 @@ module.exports= {
     deleteShopCategory: async(req,res)=>{
         try{
             const data = await ShopCategory.findById(req.params.id);
-            await fs.unlink(path.join(`public/${data.product_image}`))
+            if(data.product_image){
+                await fs.unlink(path.join(`public/${data.product_image}`))
+            }
+            
             const shopcategory = await ShopCategory.findByIdAndDelete(req.params.id);
             res.status(200).json({success: true, message:"Data deleted"});
         }catch(error){

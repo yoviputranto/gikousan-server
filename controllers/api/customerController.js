@@ -58,9 +58,9 @@ module.exports = {
         try{
             const data = await Customer.findById(req.params.id);
             console.log(data);
-            if(!data){
-                return res.status(404).json({success: false, message:"Data not found"});
-            }
+            // if(!data){
+            //     return res.status(404).json({success: false, message:"Data not found"});
+            // }
             return res.status(200).json({success: true, data});
         }catch(error){
             console.log(error);
@@ -70,12 +70,23 @@ module.exports = {
 
     readCustomer: async(req,res)=>{
         try{
-            const data = await Customer.find();
+            console.log(req.query);
+            const page = parseInt(req.query.page,10);
+            const pageSize = parseInt(req.query.pageSize,10);
+            const data = await Customer.find()
+                .skip((page > 0 ? page - 1 : page)*pageSize)
+                .limit(pageSize);
+            const count = await Customer.countDocuments();
             console.log(data);
-            if(data.length == 0){
-                return res.status(404).json({success: false, message:"Data not found"});
-            }
-            return res.status(200).json({success:true, data});
+            // if(data.length == 0){
+            //     return res.status(404).json({success: false, message:"Data not found"});
+            // }
+            return res.status(200).json({
+                success:true, 
+                data, 
+                totalPages:Math.ceil(count/pageSize),
+                page: page
+            });
         }catch(error){
             console.log(error);
             res.status(500).json({success: false, message:"Internal Server Error"});

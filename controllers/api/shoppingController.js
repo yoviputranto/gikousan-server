@@ -23,7 +23,8 @@ module.exports= {
                 product_qty,
                 shop_category_id,
                 customer_id,
-                category
+                category,
+                status
             } = req.body;
             
             const dataShopping = {
@@ -32,7 +33,8 @@ module.exports= {
                 product_qty : product_qty,
                 shop_category_id : shop_category_id,
                 customer_id : customer_id,
-                category : category
+                category : category,
+                status : status
             }
             const validation = new Validator(dataShopping,validationRules);
             if (validation.fails()) {
@@ -49,7 +51,7 @@ module.exports= {
 
             const customer = await Customer.findById(customer_id);
             if(!customer){
-                return res.status(404).json({message:"Shopping not found"});
+                return res.status(404).json({message:"Customer not found"});
             }
     
             const data = await Shopping.create(dataShopping);
@@ -72,7 +74,8 @@ module.exports= {
                 product_qty,
                 shop_category_id,
                 customer_id,
-                category
+                category,
+                status
             } = req.body;
             
             const shopping = {
@@ -81,7 +84,8 @@ module.exports= {
                 product_qty : product_qty,
                 shop_category_id : shop_category_id,
                 customer_id : customer_id,
-                category : category
+                category : category,
+                status : status
             }
             const validation = new Validator(shopping,validationRules);
             if (validation.fails()) {
@@ -115,9 +119,9 @@ module.exports= {
         try{
             const data = await Shopping.findById(req.params.id);
             console.log(data);
-            if(!data){
-                return res.status(404).json({success:false,message:"Data not found"});
-            }
+            // if(!data){
+            //     return res.status(404).json({success:false,message:"Data not found"});
+            // }
             return res.status(200).json({success:true,data});
         }catch(error){
             console.log(error);
@@ -127,12 +131,22 @@ module.exports= {
 
     readShopping: async(req,res)=>{
         try{
-            const data = await Shopping.find();
+            const page = parseInt(req.query.page,10);
+            const pageSize = parseInt(req.query.pageSize,10);
+            const data = await Shopping.find()
+                .skip((page > 0 ? page - 1 : page)*pageSize)
+                .limit(pageSize);
+            const count = await Shopping.countDocuments();
             console.log(data);
-            if(!data){
-                return res.status(404).json({success:false,message:"Data not found"});
-            }
-            return res.status(200).json({succes:true,data});
+            // if(data.length == 0){
+            //     return res.status(404).json({success: false, message:"Data not found"});
+            // }
+            return res.status(200).json({
+                success:true, 
+                data, 
+                totalPages:Math.ceil(count/pageSize),
+                page: page
+            });
         }catch(error){
             console.log(error);
             res.status(500).json({success:false,message:"Internal Server Error"});
@@ -142,7 +156,10 @@ module.exports= {
     deleteShopping: async(req,res)=>{
         try{
             const data = await Shopping.findById(req.params.id);
-            await fs.unlink(path.join(`public/${data.product_image}`))
+            if(data.product_image){
+                await fs.unlink(path.join(`public/${data.product_image}`))
+            }
+            
             const shopping = await Shopping.findByIdAndDelete(req.params.id);
             res.status(200).json({success: true, message:"Data deleted"});
         }catch(error){

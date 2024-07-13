@@ -6,12 +6,10 @@ const paymentmethodSchema = new mongoose.Schema({
         required: true
     },
     description:{
-        type: String,
-        required: true
+        type: String
     },
     icon:{
         type: String,
-        required: true
     },
     is_active:{
         type:Boolean

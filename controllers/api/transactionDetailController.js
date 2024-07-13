@@ -10,7 +10,6 @@ const validationRules = {
     shop_name: 'string',
     description:'string',
     transaction_id:'required',
-    shopping_id:'required'
 };
 
 module.exports= {
@@ -43,6 +42,14 @@ module.exports= {
             const shopping = await Shopping.findById(shopping_id);
             if(!shopping){
                 return res.status(404).json({success : false, message:"Shopping not found"});
+            }
+            
+            const transactionType = transaction.is_in;
+            if(transactionType){
+                const totalAmount = await Shopping.find({customer_id:transaction.customer_id},{status:"Belum Lunas"}).select('')
+
+            }else{
+
             }
             
             const data = await TransactionDetail.create(dataTransactionDetail);
@@ -105,9 +112,9 @@ module.exports= {
         try{
             const data = await TransactionDetail.findById(req.params.id);
             console.log(data);
-            if(!data){
-                return res.status(404).json({message:"Data not found"});
-            }
+            // if(!data){
+            //     return res.status(404).json({message:"Data not found"});
+            // }
             return res.status(200).json({success: true, data});
         }catch(error){
             console.log(error);
@@ -117,12 +124,22 @@ module.exports= {
 
     readTransactionDetail: async(req,res)=>{
         try{
-            const data = await TransactionDetail.find();
+            const page = parseInt(req.query.page,10);
+            const pageSize = parseInt(req.query.pageSize,10);
+            const data = await TransactionDetail.find()
+                .skip((page > 0 ? page - 1 : page)*pageSize)
+                .limit(pageSize);
+            const count = await TransactionDetail.countDocuments();
             console.log(data);
-            if(!data){
-                return res.status(404).json({message:"Data not found"});
-            }
-            return res.status(200).json({success: true, data});
+            // if(data.length == 0){
+            //     return res.status(404).json({success: false, message:"Data not found"});
+            // }
+            return res.status(200).json({
+                success:true, 
+                data, 
+                totalPages:Math.ceil(count/pageSize),
+                page: page
+            });
         }catch(error){
             console.log(error);
             res.status(500).json({success: false, message:"Internal Server Error"});

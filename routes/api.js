@@ -9,6 +9,7 @@ const transactionController = require('../controllers/api/transactionController'
 const transactionDetailController = require('../controllers/api/transactionDetailController');
 const shoppingController = require('../controllers/api/shoppingController');
 const authController = require('../controllers/api/authController');
+const reportController = require('../controllers/api/reportController');
 const { uploadSingle } = require('../middlewares/multer');
 const ShopCategory = require('../models/ShopCategory');
 const auth = require('../middlewares/auth');
@@ -75,5 +76,8 @@ router.post('/shopping/',auth, uploadSingle, shoppingController.createShopping);
 router.patch('/shopping/:id',auth,uploadSingle,shoppingController.editShopping);
 router.delete('/shopping/:id',auth,shoppingController.deleteShopping);
 
+//report
+router.get('/report/customer/:id',auth,reportController.reportPerUser);
+router.get('/report/category/:id',auth,reportController.reportPerCategory);
 
 module.exports = router;

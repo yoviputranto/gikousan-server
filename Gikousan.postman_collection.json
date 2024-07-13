@@ -3,7 +3,8 @@
 		"_postman_id": "3dd61379-6958-477c-9fbb-1d0cb5b1f520",
 		"name": "Gikousan",
 		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
-		"_exporter_id": "15118773"
+		"_exporter_id": "15118773",
+		"_collection_link": "https://gikousan.postman.co/workspace/Gikousan-Workspace~934547c5-983c-408e-babf-71bb216f1ff8/collection/15118773-3dd61379-6958-477c-9fbb-1d0cb5b1f520?action=share&source=collection_link&creator=15118773"
 	},
 	"item": [
 		{
@@ -36,15 +37,29 @@
 				{
 					"name": "Get All Admin",
 					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": {
-								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjdlYTQ4YjMxYWYwNzBhYzk2ZGQ4ODIiLCJpYXQiOjE3MTk1ODI5NTd9.Yu8msXdp37QapPwsieD5gwzD-WSU2CEI2ibE9un4lBE"
-							}
-						},
 						"method": "GET",
 						"header": [],
-						"url": "{{url}}/api/v1/admin/"
+						"url": {
+							"raw": "{{url}}/api/v1/admin?page=1&pageSize=2",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"admin"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "pageSize",
+									"value": "2"
+								}
+							]
+						}
 					},
 					"response": []
 				},
@@ -116,15 +131,29 @@
 				{
 					"name": "Get All Shop Type",
 					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": {
-								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjdlYTQ4YjMxYWYwNzBhYzk2ZGQ4ODIiLCJpYXQiOjE3MTk1ODI5NTd9.Yu8msXdp37QapPwsieD5gwzD-WSU2CEI2ibE9un4lBE"
-							}
-						},
 						"method": "GET",
 						"header": [],
-						"url": "{{url}}/api/v1/shop-type/"
+						"url": {
+							"raw": "{{url}}/api/v1/shop-type?page=1&pageSize=10",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"shop-type"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "pageSize",
+									"value": "10"
+								}
+							]
+						}
 					},
 					"response": []
 				},
@@ -196,15 +225,29 @@
 				{
 					"name": "Get All Customer",
 					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": {
-								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjdlYTQ4YjMxYWYwNzBhYzk2ZGQ4ODIiLCJpYXQiOjE3MTk1ODI5NTd9.Yu8msXdp37QapPwsieD5gwzD-WSU2CEI2ibE9un4lBE"
-							}
-						},
 						"method": "GET",
 						"header": [],
-						"url": "{{url}}/api/v1/customer/"
+						"url": {
+							"raw": "{{url}}/api/v1/customer?page=1&pageSize=2",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"customer"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "pageSize",
+									"value": "2"
+								}
+							]
+						}
 					},
 					"response": []
 				},
@@ -310,15 +353,29 @@
 				{
 					"name": "Get All Payment Method",
 					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": {
-								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjdlYTQ4YjMxYWYwNzBhYzk2ZGQ4ODIiLCJpYXQiOjE3MTk1ODI5NTd9.Yu8msXdp37QapPwsieD5gwzD-WSU2CEI2ibE9un4lBE"
-							}
-						},
 						"method": "GET",
 						"header": [],
-						"url": "{{url}}/api/v1/payment-method/"
+						"url": {
+							"raw": "{{url}}/api/v1/payment-method?page=1&pageSize=2",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"payment-method"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "pageSize",
+									"value": "2"
+								}
+							]
+						}
 					},
 					"response": []
 				},
@@ -431,15 +488,29 @@
 				{
 					"name": "Get All Shop Category",
 					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": {
-								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjdlYTQ4YjMxYWYwNzBhYzk2ZGQ4ODIiLCJpYXQiOjE3MTk1ODI5NTd9.Yu8msXdp37QapPwsieD5gwzD-WSU2CEI2ibE9un4lBE"
-							}
-						},
 						"method": "GET",
 						"header": [],
-						"url": "{{url}}/api/v1/shop-category"
+						"url": {
+							"raw": "{{url}}/api/v1/shop-category?page=2&pageSize=3",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"shop-category"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "2"
+								},
+								{
+									"key": "pageSize",
+									"value": "3"
+								}
+							]
+						}
 					},
 					"response": []
 				},
@@ -511,12 +582,6 @@
 				{
 					"name": "Create Shopping",
 					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": {
-								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjdlYTQ4YjMxYWYwNzBhYzk2ZGQ4ODIiLCJpYXQiOjE3MTk1ODI5NTd9.Yu8msXdp37QapPwsieD5gwzD-WSU2CEI2ibE9un4lBE"
-							}
-						},
 						"method": "POST",
 						"header": [],
 						"body": {
@@ -549,13 +614,19 @@
 								},
 								{
 									"key": "customer_id",
-									"value": "667ec695c7392a128279f26e",
+									"value": "668d330f4fe0283aea519c24",
 									"type": "text"
 								},
 								{
 									"key": "image",
 									"type": "file",
-									"src": "/Users/mac/Documents/Screenshot 2024-07-08 at 22.14.14.png"
+									"src": "/Users/mac/Documents/Screenshot 2024-07-08 at 22.14.14.png",
+									"disabled": true
+								},
+								{
+									"key": "status",
+									"value": "Belum Lunas",
+									"type": "text"
 								}
 							]
 						},
@@ -566,15 +637,29 @@
 				{
 					"name": "Get All Shopping",
 					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": {
-								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjdlYTQ4YjMxYWYwNzBhYzk2ZGQ4ODIiLCJpYXQiOjE3MTk1ODI5NTd9.Yu8msXdp37QapPwsieD5gwzD-WSU2CEI2ibE9un4lBE"
-							}
-						},
 						"method": "GET",
 						"header": [],
-						"url": "{{url}}/api/v1/shopping"
+						"url": {
+							"raw": "{{url}}/api/v1/shopping?page=2&pageSize=2",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"shopping"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "2"
+								},
+								{
+									"key": "pageSize",
+									"value": "2"
+								}
+							]
+						}
 					},
 					"response": []
 				},
@@ -584,24 +669,18 @@
 						"auth": {
 							"type": "bearer",
 							"bearer": {
-								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjdlYTQ4YjMxYWYwNzBhYzk2ZGQ4ODIiLCJpYXQiOjE3MTk1ODI5NTd9.Yu8msXdp37QapPwsieD5gwzD-WSU2CEI2ibE9un4lBE"
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjdlYTQ4YjMxYWYwNzBhYzk2ZGQ4ODIiLCJpYXQiOjE3MjA4MzA4MDl9.cfoj6TNCvyfaeOM9PDyErhGGq5qTLYaPvGOuOorS29U"
 							}
 						},
 						"method": "GET",
 						"header": [],
-						"url": "{{url}}/api/v1/shopping/668d3191174b677d7e8181b3"
+						"url": "{{url}}/api/v1/shopping/668ffedc49d5f769e4893aa8"
 					},
 					"response": []
 				},
 				{
 					"name": "Update Shopping",
 					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": {
-								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjdlYTQ4YjMxYWYwNzBhYzk2ZGQ4ODIiLCJpYXQiOjE3MTk1ODI5NTd9.Yu8msXdp37QapPwsieD5gwzD-WSU2CEI2ibE9un4lBE"
-							}
-						},
 						"method": "PATCH",
 						"header": [],
 						"body": {
@@ -636,10 +715,15 @@
 									"key": "customer_id",
 									"value": "667ec695c7392a128279f26e",
 									"type": "text"
+								},
+								{
+									"key": "status",
+									"value": "Lunas",
+									"type": "text"
 								}
 							]
 						},
-						"url": "{{url}}/api/v1/shopping/668d3191174b677d7e8181b3"
+						"url": "{{url}}/api/v1/shopping/669167e0905b0f97564990e6"
 					},
 					"response": []
 				},
@@ -649,12 +733,12 @@
 						"auth": {
 							"type": "bearer",
 							"bearer": {
-								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjdlYTQ4YjMxYWYwNzBhYzk2ZGQ4ODIiLCJpYXQiOjE3MTk1ODI5NTd9.Yu8msXdp37QapPwsieD5gwzD-WSU2CEI2ibE9un4lBE"
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjdlYTQ4YjMxYWYwNzBhYzk2ZGQ4ODIiLCJpYXQiOjE3MjA4MzA4MDl9.cfoj6TNCvyfaeOM9PDyErhGGq5qTLYaPvGOuOorS29U"
 							}
 						},
 						"method": "DELETE",
 						"header": [],
-						"url": "{{url}}/api/v1/shopping/668d3191174b677d7e8181b3"
+						"url": "{{url}}/api/v1/shopping/668ffedc49d5f769e4893aa8"
 					},
 					"response": []
 				}
@@ -690,15 +774,29 @@
 				{
 					"name": "Get All Transaction",
 					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": {
-								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjdlYTQ4YjMxYWYwNzBhYzk2ZGQ4ODIiLCJpYXQiOjE3MTk1ODI5NTd9.Yu8msXdp37QapPwsieD5gwzD-WSU2CEI2ibE9un4lBE"
-							}
-						},
 						"method": "GET",
 						"header": [],
-						"url": "{{url}}/api/v1/transaction"
+						"url": {
+							"raw": "{{url}}/api/v1/transaction?page=1&pageSize=2",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"transaction"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "pageSize",
+									"value": "2"
+								}
+							]
+						}
 					},
 					"response": []
 				},
@@ -788,15 +886,29 @@
 				{
 					"name": "Get All Transaction Detail",
 					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": {
-								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjdlYTQ4YjMxYWYwNzBhYzk2ZGQ4ODIiLCJpYXQiOjE3MTk1ODI5NTd9.Yu8msXdp37QapPwsieD5gwzD-WSU2CEI2ibE9un4lBE"
-							}
-						},
 						"method": "GET",
 						"header": [],
-						"url": "{{url}}/api/v1/transaction-detail"
+						"url": {
+							"raw": "{{url}}/api/v1/transaction-detail?page=1&pageSize=2",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"transaction-detail"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "pageSize",
+									"value": "2"
+								}
+							]
+						}
 					},
 					"response": []
 				},
@@ -857,6 +969,29 @@
 			]
 		},
 		{
+			"name": "Report",
+			"item": [
+				{
+					"name": "Report Per Customer",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{url}}/api/v1/report/customer/668d330f4fe0283aea519c24"
+					},
+					"response": []
+				},
+				{
+					"name": "Report Per Category",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{url}}/api/v1/report/category/66914eadd92908687a0cc96f"
+					},
+					"response": []
+				}
+			]
+		},
+		{
 			"name": "Login",
 			"request": {
 				"method": "POST",
@@ -902,7 +1037,7 @@
 	"auth": {
 		"type": "bearer",
 		"bearer": {
-			"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjdlYTQ4YjMxYWYwNzBhYzk2ZGQ4ODIiLCJpYXQiOjE3MjA1NzcyNTl9.eSGyfl9NIErBJA9tWLIwN_2vjl4C1r61m8K493rO8uQ"
+			"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjdlYTQ4YjMxYWYwNzBhYzk2ZGQ4ODIiLCJpYXQiOjE3MjA4MzA4MDl9.cfoj6TNCvyfaeOM9PDyErhGGq5qTLYaPvGOuOorS29U"
 		}
 	},
 	"event": [
@@ -930,14 +1065,8 @@
 	"variable": [
 		{
 			"key": "url",
-			"value": "https://gikousan-server.vercel.app",
+			"value": "https://gikousan-server.vercel.app/",
 			"type": "string"
-		},
-		{
-			"key": "url_localhost",
-			"value": "http://localhost:3000",
-			"type": "string",
-			"disabled": true
 		}
 	]
 }

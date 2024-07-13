@@ -25,6 +25,10 @@ const shoppingSchema = new mongoose.Schema({
     }],
     category:{
         type: String
+    },
+    status:{
+        type:String,
+        required : true
     }
 })
 
