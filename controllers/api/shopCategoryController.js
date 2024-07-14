@@ -8,7 +8,8 @@ const validationRules = {
     name: 'required|string',
     place: 'string',
     batch: 'integer',
-    shop_type_id: 'required'
+    shop_type_id: 'required',
+    date:'date'
 };
 
 module.exports= {
@@ -19,6 +20,7 @@ module.exports= {
                 place,
                 batch,
                 shop_type_id,
+                date
             } = req.body;
             
             // const shoptype = await ShopType.findOne({_id : shop_type_id});
@@ -31,6 +33,7 @@ module.exports= {
                 place : place,
                 batch : batch,
                 shop_type_id : shop_type_id,
+                date : date
                 // product_image : `images/${req.file.filename}`
             }
             console.log(dataShopCategory);
@@ -60,6 +63,7 @@ module.exports= {
                 place,
                 batch,
                 shop_type_id,
+                date
             } = req.body;
             
             console.log(req.body);
@@ -69,6 +73,7 @@ module.exports= {
                 place : place,
                 batch : batch,
                 shop_type_id : shop_type_id,
+                date : date
                 // product_image : `images/${req.file.filename}`
             }
             const validation = new Validator(shopcategory,validationRules);
@@ -122,14 +127,16 @@ module.exports= {
         try{
             const page = parseInt(req.query.page,10);
             const pageSize = parseInt(req.query.pageSize,10);
-            const data = await ShopCategory.find()
+            const shopType = req.query.shopType;
+            let shopTypeName = shopType.replace('-',' ').toLowerCase().replace(/\b\w/g, s => s.toUpperCase());
+            console.log(shopTypeName)
+            const dataShopType = await ShopType.findOne({name:shopTypeName}); 
+            console.log(!dataShopType);
+            const data = await ShopCategory.find(dataShopType ? {shop_type_id:dataShopType._id} : {})
                 .skip((page > 0 ? page - 1 : page)*pageSize)
                 .limit(pageSize);
-            const count = await ShopCategory.countDocuments();
-            console.log(data);
-            // if(data.length == 0){
-            //     return res.status(404).json({success: false, message:"Data not found"});
-            // }
+            const count = await ShopCategory.find(dataShopType ? {shop_type_id:dataShopType._id} : {}).countDocuments();
+            
             return res.status(200).json({
                 success:true, 
                 data, 
@@ -155,5 +162,8 @@ module.exports= {
             console.log(error);
             res.status(500).json({success: false, message:"Internal Server Error"});
         }
+    },
+    toTitleCase : (str)=>{
+        return str.toLowerCase().replace(/\b\w/g, s => s.toUpperCase());
     }
 }

@@ -4,6 +4,7 @@ const Customer = require('../../models/Customer');
 const fs = require('fs-extra');
 const path = require('path');
 const Validator = require('validatorjs');
+const ShopType = require('../../models/ShopType');
 
 const validationRules = {
     price: 'required|integer',
@@ -133,18 +134,66 @@ module.exports= {
         try{
             const page = parseInt(req.query.page,10);
             const pageSize = parseInt(req.query.pageSize,10);
-            const data = await Shopping.find()
-                .skip((page > 0 ? page - 1 : page)*pageSize)
-                .limit(pageSize);
-            const count = await Shopping.countDocuments();
-            console.log(data);
+            const shopType = req.query.shopType;
+            let shopTypeName = shopType.replace('-',' ').toLowerCase().replace(/\b\w/g, s => s.toUpperCase());
+            const dataShopType = await ShopType.findOne({name:shopTypeName});
+           
+            const filterShopType = dataShopType ? dataShopType._id : {$ne:null}
+            // console.log(filterShopType)
+            const data = await Shopping.aggregate([
+                {
+                    $lookup: {
+                      from: "shopcategories", // events collection name
+                      localField: "shop_category_id",
+                      foreignField: "_id",
+                      as: "shopcategory",
+                    },
+                },
+                {
+                    $unwind: {
+                        path: '$shopcategory',
+                        preserveNullAndEmptyArrays: true
+                    }
+                },
+                {
+                    $match:{"shopcategory.shop_type_id" : filterShopType}
+                },
+                {
+                    $skip:(page > 0 ? page - 1 : page)*pageSize
+                },
+                {
+                    $limit:pageSize
+                },
+                {
+                    $project: {"shopcategory":0}
+                }
+            ])
+            const count = await Shopping.aggregate([
+                {
+                    $lookup: {
+                      from: "shopcategories", // events collection name
+                      localField: "shop_category_id",
+                      foreignField: "_id",
+                      as: "shopcategory",
+                    },
+                },
+                {
+                    $unwind: {
+                        path: '$shopcategory',
+                        preserveNullAndEmptyArrays: true
+                    }
+                },
+                {
+                    $match:{"shopcategory.shop_type_id" : filterShopType}
+                }
+            ])
             // if(data.length == 0){
             //     return res.status(404).json({success: false, message:"Data not found"});
             // }
             return res.status(200).json({
                 success:true, 
                 data, 
-                totalPages:Math.ceil(count/pageSize),
+                totalPages:Math.ceil(count.length/pageSize),
                 page: page
             });
         }catch(error){

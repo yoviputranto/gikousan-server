@@ -18,7 +18,10 @@ const shopcategorySchema = new mongoose.Schema({
     shop_type_id:[{
         type: ObjectId,
         ref: 'ShopType'
-    }]
+    }],
+    date:{
+        type:Date
+    }
 })
 
 module.exports = mongoose.model('ShopCategory', shopcategorySchema);
