@@ -7,6 +7,11 @@ const validationRules = {
     password: 'required|string|min:8'
 };
 
+const validationRulesUpdate = {
+    name: 'required|string',
+    email: 'required|string|email'
+};
+
 module.exports={
     createAdmin: async(req, res)=>{
         try {
@@ -39,7 +44,7 @@ module.exports={
 
     editAdmin: async(req,res)=>{
         try{
-            const validation = new Validator(req.body,validationRules);
+            const validation = new Validator(req.body,validationRulesUpdate);
             if (validation.fails()) {
                 return res.status(400).json({success : false, message:validation.errors.all()});
             }

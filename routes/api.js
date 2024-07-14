@@ -75,6 +75,7 @@ router.get('/shopping/:id',auth,shoppingController.readDetailShopping);
 router.post('/shopping/',auth, uploadSingle, shoppingController.createShopping);
 router.patch('/shopping/:id',auth,uploadSingle,shoppingController.editShopping);
 router.delete('/shopping/:id',auth,shoppingController.deleteShopping);
+router.get('/shopping/customer/:id',auth,shoppingController.listShoppingTransaction)
 
 //report
 router.get('/report/customer/:id',auth,reportController.reportPerUser);

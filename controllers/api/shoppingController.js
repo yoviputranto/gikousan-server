@@ -5,6 +5,7 @@ const fs = require('fs-extra');
 const path = require('path');
 const Validator = require('validatorjs');
 const ShopType = require('../../models/ShopType');
+const mongoose = require("mongoose");
 
 const validationRules = {
     price: 'required|integer',
@@ -12,7 +13,8 @@ const validationRules = {
     product_qty: 'integer',
     category:'string',
     shop_category_id:'required',
-    customer_id:'required'
+    customer_id:'required',
+    status:'required'
 };
 
 module.exports= {
@@ -135,6 +137,15 @@ module.exports= {
             const page = parseInt(req.query.page,10);
             const pageSize = parseInt(req.query.pageSize,10);
             const shopType = req.query.shopType;
+            let customer = '';
+            if(req.query.customer){
+                console.log(req.query.customer)
+                const dataCustomer = await Customer.findById(req.query.customer)
+                console.log(dataCustomer)
+                customer = dataCustomer._id;
+            }
+            console.log(customer)
+            const filterCustomer = customer ? customer : {$ne:null}
             let shopTypeName = shopType.replace('-',' ').toLowerCase().replace(/\b\w/g, s => s.toUpperCase());
             const dataShopType = await ShopType.findOne({name:shopTypeName});
            
@@ -156,7 +167,10 @@ module.exports= {
                     }
                 },
                 {
-                    $match:{"shopcategory.shop_type_id" : filterShopType}
+                    $match:{
+                        "shopcategory.shop_type_id" : filterShopType,
+                        customer_id : filterCustomer
+                    }
                 },
                 {
                     $skip:(page > 0 ? page - 1 : page)*pageSize
@@ -184,7 +198,10 @@ module.exports= {
                     }
                 },
                 {
-                    $match:{"shopcategory.shop_type_id" : filterShopType}
+                    $match:{
+                        "shopcategory.shop_type_id" : filterShopType,
+                        customer_id : filterCustomer
+                    }
                 }
             ])
             // if(data.length == 0){
@@ -214,6 +231,84 @@ module.exports= {
         }catch(error){
             console.log(error);
             res.status(500).json({success: false, message:"Internal Server Error"});
+        }
+    },
+
+    listShoppingTransaction: async(req, res)=>{
+        try {
+            const shopping = await Shopping.find({shop_category_id:req.params.id});
+            const customer_id = new mongoose.Types.ObjectId(req.params.id);
+            
+            const data = await Shopping.aggregate([
+                {
+                    $lookup: {
+                      from: "customers", // events collection name
+                      localField: "customer_id",
+                      foreignField: "_id",
+                      as: "customer",
+                    },
+                },
+                {
+                    $lookup: {
+                      from: "shopcategories", // events collection name
+                      localField: "shop_category_id",
+                      foreignField: "_id",
+                      as: "shopcategory",
+                    },
+                },
+                {
+                    $lookup: {
+                      from: "shoptypes", // events collection name
+                      localField: "shopcategory.shop_type_id",
+                      foreignField: "_id",
+                      as: "shoptype",
+                    },
+                },
+
+                {
+                    $unwind: {
+                        path: '$customer',
+                        preserveNullAndEmptyArrays: true
+                    }
+                },
+                {
+                    $unwind: {
+                        path: '$shopcategory',
+                        preserveNullAndEmptyArrays: true
+                    }
+                },
+                {
+                    $unwind: {
+                        path: '$shoptype',
+                        preserveNullAndEmptyArrays: true
+                    }
+                },
+                {
+                    $match:{
+                        customer_id : customer_id,
+                        status:"Belum Lunas"
+                    }
+                },
+                {
+                    $group:{
+                        "_id":"$shopcategory.shop_type_id",
+                        name : {$first : "$shoptype.name"},
+                        shoppings: {
+                            $push: {
+                              _id : "$_id",
+                              product_name: "$product_name",
+                              product_qty: "$product_qty",
+                              price : "$price"
+                            }
+                        },
+                        
+                    }
+                }
+            ])
+            res.status(200).json({success: true, data : data});
+        } catch (error) {
+            console.log(error);
+            return res.status(500).json({success:false,message: "Internal Server Error"});
         }
     }
 }
