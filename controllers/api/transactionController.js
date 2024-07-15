@@ -2,16 +2,23 @@ const Transaction = require('../../models/Transaction');
 const Admin = require('../../models/Admin');
 const PaymentMethod = require('../../models/PaymentMethod');
 const Customer = require('../../models/Customer');
+const TransactionDetail = require('../../models/TransactionDetail')
 const fs = require('fs-extra');
 const path = require('path');
 const Validator = require('validatorjs');
 
-const validationRules = {
+const validationRulesTransaction = {
     is_in: 'required|boolean',
     issued_at: 'date',
     payment_method_id:'required',
     customer_id:'required',
     admin_id:'required'
+};
+const validationRulesTransactionDetail = {
+    paid_amount: 'required|integer',
+    shop_name: 'string',
+    description:'string',
+    transaction_id:'required',
 };
 module.exports= {
     createTransaction: async(req,res)=>{
@@ -21,8 +28,12 @@ module.exports= {
                 issued_at,
                 admin_id,
                 payment_method_id,
-                customer_id
+                customer_id,
+                transaction_details
             } = req.body;
+            //console.log(transaction_details)
+            
+            // return res.status(200).json({success:true});
             
             const dataTransaction = {
                 is_in : is_in,
@@ -31,7 +42,8 @@ module.exports= {
                 payment_method_id : payment_method_id,
                 customer_id : customer_id
             }
-            const validation = new Validator(dataTransaction,validationRules);
+            console.log(dataTransaction)
+            const validation = new Validator(dataTransaction,validationRulesTransaction);
             if (validation.fails()) {
                 return res.status(400).json({success : false, message:validation.errors.all()});
             }
@@ -51,6 +63,21 @@ module.exports= {
             }
     
             const data = await Transaction.create(dataTransaction);
+            for(i=0; i<transaction_details.length;i++){
+                let dataTransactionDetail={
+                    paid_amount:0,
+                    shop_name:transaction_details[i].product_name,
+                    description:null,
+                    transaction_id:data.id,
+                    shopping_id:transaction_details[i].shopping_id
+                }
+                let validationDetail = new Validator(dataTransactionDetail,validationRulesTransactionDetail);
+                if (validationDetail.fails()) {
+                    return res.status(400).json({success : false, message:validationDetail.errors.all()});
+                }
+                let transactiondetail = await TransactionDetail.create(dataTransactionDetail);
+                console.log(transactiondetail)
+            }
     
             res.status(201).json({ success: true, message : "Data created", data});
         }catch(error){
@@ -79,7 +106,7 @@ module.exports= {
                 payment_method_id : payment_method_id,
                 customer_id : customer_id
             }
-            const validation = new Validator(transaction,validationRules);
+            const validation = new Validator(transaction,validationRulesTransaction);
             if (validation.fails()) {
                 return res.status(400).json({success : false, message:validation.errors.all()});
             }

@@ -126,10 +126,15 @@ module.exports= {
         try{
             const page = parseInt(req.query.page,10);
             const pageSize = parseInt(req.query.pageSize,10);
-            const data = await TransactionDetail.find()
+            let transactionId = '';
+            if(req.query.transaction){
+                transactionId = req.query.transaction;
+            }
+            const filterTransaction = transactionId ? {transaction_id : transactionId}: null
+            const data = await TransactionDetail.find(filterTransaction)
                 .skip((page > 0 ? page - 1 : page)*pageSize)
                 .limit(pageSize);
-            const count = await TransactionDetail.countDocuments();
+            const count = await TransactionDetail.find(filterTransaction).countDocuments();
             console.log(data);
             // if(data.length == 0){
             //     return res.status(404).json({success: false, message:"Data not found"});
