@@ -134,7 +134,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{url}}/api/v1/shop-type?page=1&pageSize=10",
+							"raw": "{{url}}/api/v1/shop-type?page=2&pageSize=10",
 							"host": [
 								"{{url}}"
 							],
@@ -146,7 +146,7 @@
 							"query": [
 								{
 									"key": "page",
-									"value": "1"
+									"value": "2"
 								},
 								{
 									"key": "pageSize",
@@ -452,12 +452,6 @@
 				{
 					"name": "Create Shop Category",
 					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": {
-								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjdlYTQ4YjMxYWYwNzBhYzk2ZGQ4ODIiLCJpYXQiOjE3MTk1ODI5NTd9.Yu8msXdp37QapPwsieD5gwzD-WSU2CEI2ibE9un4lBE"
-							}
-						},
 						"method": "POST",
 						"header": [],
 						"body": {
@@ -465,19 +459,37 @@
 							"formdata": [
 								{
 									"key": "name",
-									"value": "Category 2",
+									"value": "Lain-lain",
 									"type": "text"
 								},
 								{
 									"key": "shop_type_id",
-									"value": "6687a7be5a8625fc7c93f9aa",
-									"type": "text",
-									"disabled": true
+									"value": "66934d964a8f5aa0149c011d",
+									"type": "text"
 								},
 								{
 									"key": "image",
 									"type": "file",
-									"src": "/Users/mac/Downloads/Atas Kehadiran dan Do’a Restunya.png"
+									"src": "/Users/mac/Downloads/Atas Kehadiran dan Do’a Restunya.png",
+									"disabled": true
+								},
+								{
+									"key": "date",
+									"value": "07-14-2024",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "place",
+									"value": "instagram",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "batch",
+									"value": "2",
+									"type": "text",
+									"disabled": true
 								}
 							]
 						},
@@ -491,7 +503,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{url}}/api/v1/shop-category?page=2&pageSize=3",
+							"raw": "{{url}}/api/v1/shop-category?page=1&pageSize=9&shopType=personal-order",
 							"host": [
 								"{{url}}"
 							],
@@ -503,11 +515,15 @@
 							"query": [
 								{
 									"key": "page",
-									"value": "2"
+									"value": "1"
 								},
 								{
 									"key": "pageSize",
-									"value": "3"
+									"value": "9"
+								},
+								{
+									"key": "shopType",
+									"value": "personal-order"
 								}
 							]
 						}
@@ -594,7 +610,7 @@
 								},
 								{
 									"key": "product_name",
-									"value": "Product 2",
+									"value": "Product Sharing Group 5",
 									"type": "text"
 								},
 								{
@@ -609,7 +625,7 @@
 								},
 								{
 									"key": "shop_category_id",
-									"value": "6688e5e3f6b6e80f877d41d6",
+									"value": "6693154d5f5240bcef6f7c57",
 									"type": "text"
 								},
 								{
@@ -640,7 +656,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{url}}/api/v1/shopping?page=2&pageSize=2",
+							"raw": "{{url}}/api/v1/shopping?page=1&pageSize=10&shopType=all&customer=668d330f4fe0283aea519c24",
 							"host": [
 								"{{url}}"
 							],
@@ -652,11 +668,19 @@
 							"query": [
 								{
 									"key": "page",
-									"value": "2"
+									"value": "1"
 								},
 								{
 									"key": "pageSize",
-									"value": "2"
+									"value": "10"
+								},
+								{
+									"key": "shopType",
+									"value": "all"
+								},
+								{
+									"key": "customer",
+									"value": "668d330f4fe0283aea519c24"
 								}
 							]
 						}
@@ -739,6 +763,14 @@
 						"method": "DELETE",
 						"header": [],
 						"url": "{{url}}/api/v1/shopping/668ffedc49d5f769e4893aa8"
+					},
+					"response": []
+				},
+				{
+					"name": "List Shopping Transaction",
+					"request": {
+						"method": "GET",
+						"header": []
 					},
 					"response": []
 				}
@@ -889,7 +921,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{url}}/api/v1/transaction-detail?page=1&pageSize=2",
+							"raw": "{{url}}/api/v1/transaction-detail?page=1&pageSize=1&transaction=669542aac07277095595527d",
 							"host": [
 								"{{url}}"
 							],
@@ -905,7 +937,11 @@
 								},
 								{
 									"key": "pageSize",
-									"value": "2"
+									"value": "1"
+								},
+								{
+									"key": "transaction",
+									"value": "669542aac07277095595527d"
 								}
 							]
 						}
