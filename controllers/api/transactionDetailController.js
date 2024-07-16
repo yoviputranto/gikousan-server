@@ -1,9 +1,11 @@
 const TransactionDetail = require('../../models/TransactionDetail');
 const Transaction = require('../../models/Transaction');
 const Shopping = require('../../models/Shopping');
+const Customer = require('../../models/Customer');
 const fs = require('fs-extra');
 const path = require('path');
 const Validator = require('validatorjs');
+const mongoose = require("mongoose");
 
 const validationRules = {
     paid_amount: 'required|integer',
@@ -159,6 +161,85 @@ module.exports= {
         }catch(error){
             console.log(error);
             res.status(500).json({success: false, message:"Internal Server Error"});
+        }
+    },
+
+    readTransactionDetailByTransaction: async(req,res)=>{
+        try {
+            const transaction_id = new mongoose.Types.ObjectId(req.params.id);
+            
+            const data = await TransactionDetail.aggregate([
+                {
+                    $lookup: {
+                      from: "shoppings", // events collection name
+                      localField: "shopping_id",
+                      foreignField: "_id",
+                      as: "shopping",
+                    },
+                },
+                {
+                    $lookup: {
+                      from: "shopcategories", // events collection name
+                      localField: "shopping.shop_category_id",
+                      foreignField: "_id",
+                      as: "shopcategory",
+                    },
+                },
+                {
+                    $lookup: {
+                      from: "shoptypes", // events collection name
+                      localField: "shopcategory.shop_type_id",
+                      foreignField: "_id",
+                      as: "shoptype",
+                    },
+                },
+
+                {
+                    $unwind: {
+                        path: '$shopping',
+                        preserveNullAndEmptyArrays: true
+                    }
+                },
+                {
+                    $unwind: {
+                        path: '$shopcategory',
+                        preserveNullAndEmptyArrays: true
+                    }
+                },
+                {
+                    $unwind: {
+                        path: '$shoptype',
+                        preserveNullAndEmptyArrays: true
+                    }
+                },
+                {
+                    $match:{
+                        transaction_id : transaction_id
+                    }
+                },
+                {
+                    $group:{
+                        "_id":"$shopcategory.shop_type_id",
+                        name : {$first : "$shoptype.name"},
+                        data: {
+                            $push: {
+                              _id : "$_id",
+                              shop_name: "$shop_name",
+                              description: "$description",
+                              paid_amount : "$paid_amount"
+                            }
+                        },
+                        
+                    }
+                }
+            ])
+            return res.status(200).json({
+                success:true, 
+                data
+            });
+        } catch (error) {
+            console.log(error);
+            res.status(500).json({success:false,message:"Internal Server Error"});
         }
     }
 }
