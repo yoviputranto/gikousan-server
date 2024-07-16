@@ -117,7 +117,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\" : \"Tiktokshop\",\n    \"description\" : null\n}",
+							"raw": "{\n    \"name\" : \"Sharing Group\",\n    \"description\" : null\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -254,15 +254,9 @@
 				{
 					"name": "Get Customer",
 					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": {
-								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjdlYTQ4YjMxYWYwNzBhYzk2ZGQ4ODIiLCJpYXQiOjE3MTk1ODI5NTd9.Yu8msXdp37QapPwsieD5gwzD-WSU2CEI2ibE9un4lBE"
-							}
-						},
 						"method": "GET",
 						"header": [],
-						"url": "{{url}}/api/v1/customer/667ec628c7392a128279f26a"
+						"url": "{{url}}/api/v1/customer/668d330f4fe0283aea519c24"
 					},
 					"response": []
 				},
@@ -533,15 +527,9 @@
 				{
 					"name": "Get Shop Category",
 					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": {
-								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjdlYTQ4YjMxYWYwNzBhYzk2ZGQ4ODIiLCJpYXQiOjE3MTk1ODI5NTd9.Yu8msXdp37QapPwsieD5gwzD-WSU2CEI2ibE9un4lBE"
-							}
-						},
 						"method": "GET",
 						"header": [],
-						"url": "{{url}}/api/v1/shop-category/6688e64df6b6e80f877d41e7"
+						"url": "{{url}}/api/v1/shop-category/669314ec5f5240bcef6f7bfa"
 					},
 					"response": []
 				},
@@ -770,7 +758,37 @@
 					"name": "List Shopping Transaction",
 					"request": {
 						"method": "GET",
-						"header": []
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/v1/shopping/customer/668d330f4fe0283aea519c24",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"shopping",
+								"customer",
+								"668d330f4fe0283aea519c24"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "pageSize",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "shopType",
+									"value": "live-shopping",
+									"disabled": true
+								}
+							]
+						}
 					},
 					"response": []
 				}
@@ -782,17 +800,11 @@
 				{
 					"name": "Create Transaction",
 					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": {
-								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjdlYTQ4YjMxYWYwNzBhYzk2ZGQ4ODIiLCJpYXQiOjE3MTk1ODI5NTd9.Yu8msXdp37QapPwsieD5gwzD-WSU2CEI2ibE9un4lBE"
-							}
-						},
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"is_in\":true,\n    \"issued_at\" : \"09-07-2024\",\n    \"admin_id\" : \"667ea48b31af070ac96dd882\",\n    \"payment_method_id\": \"668dd46072a72a1556370587\",\n    \"customer_id\" : \"667ec695c7392a128279f26e\"\n}",
+							"raw": "{\n    \"is_in\":true,\n    \"issued_at\" : \"07-13-2024\",\n    \"admin_id\" : \"667ea48b31af070ac96dd882\",\n    \"payment_method_id\": \"668dd46072a72a1556370587\",\n    \"customer_id\" : \"668d330f4fe0283aea519c24\",\n    \"transaction_details\" :[\n        {\n            \"shopping_id\":\"66931d8181d74560c0adb0c3\",\n            \"product_name\":\"Product Live Shopping 2\"\n        },\n        {\n            \"shopping_id\":\"66931da681d74560c0adb104\",\n            \"product_name\":\"Product Live Shopping 3\"\n        }\n    ]\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -894,17 +906,11 @@
 				{
 					"name": "Create Transaction Detail",
 					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": {
-								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjdlYTQ4YjMxYWYwNzBhYzk2ZGQ4ODIiLCJpYXQiOjE3MTk1ODI5NTd9.Yu8msXdp37QapPwsieD5gwzD-WSU2CEI2ibE9un4lBE"
-							}
-						},
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"paid_amount\":120000,\n    \"shop_name\":\"Shop 2\",\n    \"description\": null,\n    \"transaction_id\": \"668dd5831360482fd8ab5c1f\",\n    \"shopping_id\": \"668d3104174b677d7e81819b\"\n}",
+							"raw": "{\n    \"paid_amount\":0,\n    \"shop_name\":\"Shop 2\",\n    \"description\": null,\n    \"transaction_id\": \"668dd5831360482fd8ab5c1f\",\n    \"shopping_id\": \"668d3104174b677d7e81819b\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -999,6 +1005,39 @@
 						"method": "DELETE",
 						"header": [],
 						"url": "{{url}}/api/v1/transaction-detail/668de8085040b60d20f3d231"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Transaction Detail By Transaction",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/v1/transaction-detail/transaction/6695f249d861be43d456d130",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"transaction-detail",
+								"transaction",
+								"6695f249d861be43d456d130"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "pageSize",
+									"value": "10",
+									"disabled": true
+								}
+							]
+						}
 					},
 					"response": []
 				}
