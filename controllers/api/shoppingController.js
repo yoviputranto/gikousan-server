@@ -150,6 +150,13 @@ module.exports= {
             const dataShopType = await ShopType.findOne({name:shopTypeName});
            
             const filterShopType = dataShopType ? dataShopType._id : {$ne:null}
+            const search = req.query.search;
+            let filter = {}; 
+            filter["shopcategory.shop_type_id"] = filterShopType;
+            filter.customer_id = filterCustomer;
+            if(search){
+                filter.product_name = {$regex : '.*' + search + '.*', $options:'i'}
+            }
             // console.log(filterShopType)
             const data = await Shopping.aggregate([
                 {
@@ -167,10 +174,7 @@ module.exports= {
                     }
                 },
                 {
-                    $match:{
-                        "shopcategory.shop_type_id" : filterShopType,
-                        customer_id : filterCustomer
-                    }
+                    $match:filter
                 },
                 {
                     $skip:(page > 0 ? page - 1 : page)*pageSize
@@ -198,10 +202,7 @@ module.exports= {
                     }
                 },
                 {
-                    $match:{
-                        "shopcategory.shop_type_id" : filterShopType,
-                        customer_id : filterCustomer
-                    }
+                    $match:filter
                 }
             ])
             // if(data.length == 0){

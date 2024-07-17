@@ -73,10 +73,15 @@ module.exports = {
             console.log(req.query);
             const page = parseInt(req.query.page,10);
             const pageSize = parseInt(req.query.pageSize,10);
-            const data = await Customer.find()
+            const search = req.query.search;
+            let filter = {}; 
+            if(search){
+                filter.name = {$regex : '.*' + search + '.*', $options:'i'}
+            }
+            const data = await Customer.find(filter)
                 .skip((page > 0 ? page - 1 : page)*pageSize)
                 .limit(pageSize);
-            const count = await Customer.countDocuments();
+            const count = await Customer.find(filter).countDocuments();
             console.log(data);
             // if(data.length == 0){
             //     return res.status(404).json({success: false, message:"Data not found"});

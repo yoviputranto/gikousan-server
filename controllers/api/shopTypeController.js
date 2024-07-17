@@ -70,10 +70,15 @@ module.exports={
         try{
             const page = parseInt(req.query.page,10);
             const pageSize = parseInt(req.query.pageSize,10);
-            const data = await ShopType.find()
+            const search = req.query.search;
+            let filter = {};
+            if(search){
+                filter.name = {$regex : '.*' + search + '.*', $options:'i'}
+            }
+            const data = await ShopType.find(filter)
                 .skip((page > 0 ? page - 1 : page)*pageSize)
                 .limit(pageSize);
-            const count = await ShopType.countDocuments();
+            const count = await ShopType.find(filter).countDocuments();
             console.log(data);
             // if(data.length == 0){
             //     return res.status(404).json({success: false, message:"Data not found"});

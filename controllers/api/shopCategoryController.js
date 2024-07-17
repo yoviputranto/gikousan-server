@@ -132,10 +132,19 @@ module.exports= {
             console.log(shopTypeName)
             const dataShopType = await ShopType.findOne({name:shopTypeName}); 
             console.log(!dataShopType);
-            const data = await ShopCategory.find(dataShopType ? {shop_type_id:dataShopType._id} : {})
+            const search = req.query.search;
+            let filter = {}; 
+            if(dataShopType){
+                filter.shop_type_id = dataShopType._id
+            }
+            if(search){
+                filter.name = {$regex : '.*' + search + '.*', $options:'i'}
+            }
+            console.log(filter)
+            const data = await ShopCategory.find(filter)
                 .skip((page > 0 ? page - 1 : page)*pageSize)
                 .limit(pageSize);
-            const count = await ShopCategory.find(dataShopType ? {shop_type_id:dataShopType._id} : {}).countDocuments();
+            const count = await ShopCategory.find(filter).countDocuments();
             
             return res.status(200).json({
                 success:true, 

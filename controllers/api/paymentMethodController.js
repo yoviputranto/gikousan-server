@@ -104,10 +104,15 @@ module.exports = {
         try{
             const page = parseInt(req.query.page,10);
             const pageSize = parseInt(req.query.pageSize,10);
-            const data = await PaymentMethod.find()
+            const search = req.query.search;
+            let filter = {};
+            if(search){
+                filter.name = {$regex : '.*' + search + '.*', $options:'i'}
+            }
+            const data = await PaymentMethod.find(filter)
                 .skip((page > 0 ? page - 1 : page)*pageSize)
                 .limit(pageSize);
-            const count = await PaymentMethod.countDocuments();
+            const count = await PaymentMethod.find(filter).countDocuments();
             console.log(data);
             // if(data.length == 0){
             //     return res.status(404).json({success: false, message:"Data not found"});

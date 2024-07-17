@@ -40,7 +40,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{url}}/api/v1/admin?page=1&pageSize=2",
+							"raw": "{{url}}/api/v1/admin?page=1&search=super&pageSize=8",
 							"host": [
 								"{{url}}"
 							],
@@ -55,8 +55,12 @@
 									"value": "1"
 								},
 								{
+									"key": "search",
+									"value": "super"
+								},
+								{
 									"key": "pageSize",
-									"value": "2"
+									"value": "8"
 								}
 							]
 						}
@@ -134,7 +138,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{url}}/api/v1/shop-type?page=2&pageSize=10",
+							"raw": "{{url}}/api/v1/shop-type?page=1&pageSize=10&search=ing",
 							"host": [
 								"{{url}}"
 							],
@@ -146,11 +150,15 @@
 							"query": [
 								{
 									"key": "page",
-									"value": "2"
+									"value": "1"
 								},
 								{
 									"key": "pageSize",
 									"value": "10"
+								},
+								{
+									"key": "search",
+									"value": "ing"
 								}
 							]
 						}
@@ -228,7 +236,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{url}}/api/v1/customer?page=1&pageSize=2",
+							"raw": "{{url}}/api/v1/customer?page=1&pageSize=5&search=irfan",
 							"host": [
 								"{{url}}"
 							],
@@ -244,7 +252,11 @@
 								},
 								{
 									"key": "pageSize",
-									"value": "2"
+									"value": "5"
+								},
+								{
+									"key": "search",
+									"value": "irfan"
 								}
 							]
 						}
@@ -350,7 +362,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{url}}/api/v1/payment-method?page=1&pageSize=2",
+							"raw": "{{url}}/api/v1/payment-method?page=1&pageSize=5&search=pay",
 							"host": [
 								"{{url}}"
 							],
@@ -366,7 +378,11 @@
 								},
 								{
 									"key": "pageSize",
-									"value": "2"
+									"value": "5"
+								},
+								{
+									"key": "search",
+									"value": "pay"
 								}
 							]
 						}
@@ -497,7 +513,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{url}}/api/v1/shop-category?page=1&pageSize=9&shopType=personal-order",
+							"raw": "{{url}}/api/v1/shop-category?page=1&pageSize=9&shopType=personal-order&search=lain",
 							"host": [
 								"{{url}}"
 							],
@@ -518,6 +534,10 @@
 								{
 									"key": "shopType",
 									"value": "personal-order"
+								},
+								{
+									"key": "search",
+									"value": "lain"
 								}
 							]
 						}
@@ -644,7 +664,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{url}}/api/v1/shopping?page=1&pageSize=10&shopType=all&customer=668d330f4fe0283aea519c24",
+							"raw": "{{url}}/api/v1/shopping?page=1&pageSize=10&shopType=all&customer=668d330f4fe0283aea519c24&search=product",
 							"host": [
 								"{{url}}"
 							],
@@ -669,6 +689,10 @@
 								{
 									"key": "customer",
 									"value": "668d330f4fe0283aea519c24"
+								},
+								{
+									"key": "search",
+									"value": "product"
 								}
 							]
 						}
@@ -927,7 +951,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{url}}/api/v1/transaction-detail?page=1&pageSize=1&transaction=669542aac07277095595527d",
+							"raw": "{{url}}/api/v1/transaction-detail?page=1&pageSize=16",
 							"host": [
 								"{{url}}"
 							],
@@ -942,12 +966,13 @@
 									"value": "1"
 								},
 								{
-									"key": "pageSize",
-									"value": "1"
+									"key": "transaction",
+									"value": "669542aac07277095595527d",
+									"disabled": true
 								},
 								{
-									"key": "transaction",
-									"value": "669542aac07277095595527d"
+									"key": "pageSize",
+									"value": "16"
 								}
 							]
 						}
