@@ -1065,6 +1065,48 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Get Transaction Detail By Transaction Copy",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"transaction_id\" : \"6695f249d861be43d456d130\",\n    \"data\": [\n        {\n            \"id\": \"6695f24ad861be43d456d134\",\n            \"paid_amount\": 0\n            \n        },\n        {\n            \"id\": \"6695f249d861be43d456d132\",\n            \"paid_amount\": 0\n        },\n        {\n            \"id\": \"6695f24ad861be43d456d136\",\n            \"paid_amount\": 0\n        }\n        \n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/transaction-detail/transaction/6695f249d861be43d456d130",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"transaction-detail",
+								"transaction",
+								"6695f249d861be43d456d130"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "pageSize",
+									"value": "10",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},

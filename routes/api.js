@@ -68,7 +68,8 @@ router.get('/transaction-detail/:id',auth,transactionDetailController.readDetail
 router.post('/transaction-detail/',auth, uploadSingle, transactionDetailController.createTransactionDetail);
 router.patch('/transaction-detail/:id',auth,uploadSingle,transactionDetailController.editTransactionDetail);
 router.delete('/transaction-detail/:id',auth,transactionDetailController.deleteTransactionDetail);
-router.get('/transaction-detail/transaction/:id',auth,transactionDetailController.readTransactionDetailByTransaction)
+router.get('/transaction-detail/transaction/:id',auth,transactionDetailController.readTransactionDetailByTransaction);
+router.patch('/transaction-detail/transaction/:id',auth,transactionDetailController.fillAmountTransactionDetail);
 
 //shop category
 router.get('/shopping',auth,shoppingController.readShopping);

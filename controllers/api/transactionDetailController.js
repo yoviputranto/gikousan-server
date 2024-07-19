@@ -14,7 +14,8 @@ const validationRules = {
     transaction_id:'required',
 };
 
-module.exports= {
+
+var transactionDetailController= {
     createTransactionDetail: async(req,res)=>{
         try{
             const{
@@ -241,5 +242,94 @@ module.exports= {
             console.log(error);
             res.status(500).json({success:false,message:"Internal Server Error"});
         }
-    }
+    },
+    fillAmountTransactionDetail: async(req,res)=>{
+        try{
+            const{
+                transaction_id,
+                data
+            } = req.body;
+            console.log(data);
+            for(i=0;i < data.length;i++){
+                console.log(data[i].id)
+                const dataTransactionDetail = await TransactionDetail.findById(data[i].id);
+                if(!dataTransactionDetail){
+                    return res.status(404).json({success : false, message:"Transaction Detail not found"});
+                }
+                const transactiondetail = {
+                    paid_amount : data[i].paid_amount,
+                    shop_name : dataTransactionDetail.shop_name,
+                    description : dataTransactionDetail.description,
+                    transaction_id : transaction_id,
+                    shopping_id : dataTransactionDetail.shopping_id
+                }
+                console.log(transactiondetail);
+                const validation = new Validator(transactiondetail,validationRules);
+                if (validation.fails()) {
+                    return res.status(400).json({success : false, message:validation.errors.all()});
+                }
+                let checkAmountResult = transactionDetailController.checkAmount(dataTransactionDetail.shopping_id,data[i].paid_amount)
+                console.log(checkAmountResult)
+                if(!checkAmountResult.isUpdate){
+                    return res.status(404).json({success : false, message: "Barang " + dataTransactionDetail.shop_name + " " + checkAmountResult.message})
+                }
+            }
+            
+            
+            
+            // const transaction = await Transaction.findOne({_id : transaction_id});
+            // if(!transaction){
+            //     return res.status(404).json({ success : false, message:"Transaction not found"});
+            // }
+
+            // const shopping = await Shopping.findById(shopping_id);
+            // if(!shopping){
+            //     return res.status(404).json({success : false, message:"Shopping not found"});
+            // }
+            
+            //const data = await TransactionDetail.findByIdAndUpdate({_id:req.params.id},transactiondetail,{new:true});
+            return res.status(200).json({success: true, message:"payment successful"});
+        }catch(error){
+            console.log(error);
+            return res.status(500).json({success: false, message: "Internal Server Error"});
+        }
+        
+    },
+
+    checkAmount:  function(shopping_id,paid_amount){
+        const shopping = Shopping.findById(shopping_id);
+        if(!shopping){
+            return res.status(404).json({success : false, message:"Shopping not found"});
+        }
+        let isUpdate = false;
+        let message = "";
+        let dataShopping = {};
+        console.log(shopping.bill);
+        if(shopping.status == "Belum Lunas"){
+            let currentAmount = 0;
+            
+            if(paid_amount < shopping.bill){
+                currentAmount = shopping.bill - paid_amount;
+                dataShopping.bill = currentAmount;
+                isUpdate = true;
+                message = "Lunas Sebagian"
+            }else if(paid_amount == shopping.bill){
+                dataShopping.status = "Lunas"
+                dataShopping.bill = currentAmount;
+                isUpdate = true;
+                message = "Lunas"
+            }else{
+                message = "Nominal yang dibayar melebihi jumlah tagihan"
+            }
+        }else{
+            message = "Tagihan sudah lunas";
+        }
+        return{
+            isUpdate : isUpdate,
+            message : message,
+            data : dataShopping
+        }
+    },
 }
+
+module.exports = transactionDetailController;

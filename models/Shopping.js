@@ -29,6 +29,9 @@ const shoppingSchema = new mongoose.Schema({
     status:{
         type:String,
         required : true
+    },
+    bill:{
+        type: Number
     }
 })
 
