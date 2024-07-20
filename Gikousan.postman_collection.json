@@ -362,7 +362,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{url}}/api/v1/payment-method?page=1&pageSize=5&search=pay",
+							"raw": "{{url}}/api/v1/payment-method?page=1&pageSize=5&search=pay&active=true",
 							"host": [
 								"{{url}}"
 							],
@@ -383,6 +383,10 @@
 								{
 									"key": "search",
 									"value": "pay"
+								},
+								{
+									"key": "active",
+									"value": "true"
 								}
 							]
 						}
@@ -513,7 +517,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{url}}/api/v1/shop-category?page=1&pageSize=9&shopType=personal-order&search=lain",
+							"raw": "{{url}}/api/v1/shop-category?page=1&pageSize=9&shopType=all&search=lain",
 							"host": [
 								"{{url}}"
 							],
@@ -533,7 +537,7 @@
 								},
 								{
 									"key": "shopType",
-									"value": "personal-order"
+									"value": "all"
 								},
 								{
 									"key": "search",
@@ -1123,11 +1127,83 @@
 					"response": []
 				},
 				{
+					"name": "List Report Customer",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/v1/report/customer?search=irfan&page=1&pageSize=10",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"report",
+								"customer"
+							],
+							"query": [
+								{
+									"key": "search",
+									"value": "irfan"
+								},
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "pageSize",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Report Per Category",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": "{{url}}/api/v1/report/category/66914eadd92908687a0cc96f"
+					},
+					"response": []
+				},
+				{
+					"name": "List Report Category",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/v1/report/category?page=1&pageSize=10&shopType=all&search=group",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"report",
+								"category"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "pageSize",
+									"value": "10"
+								},
+								{
+									"key": "shopType",
+									"value": "all"
+								},
+								{
+									"key": "search",
+									"value": "group"
+								}
+							]
+						}
 					},
 					"response": []
 				}

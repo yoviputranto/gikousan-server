@@ -81,6 +81,8 @@ router.get('/shopping/customer/:id',auth,shoppingController.listShoppingTransact
 
 //report
 router.get('/report/customer/:id',auth,reportController.reportPerUser);
+router.get('/report/customer/',auth,reportController.listReportUser);
 router.get('/report/category/:id',auth,reportController.reportPerCategory);
+router.get('/report/category/',auth,reportController.listReportCategory);
 
 module.exports = router;

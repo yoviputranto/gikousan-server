@@ -273,6 +273,7 @@ var transactionDetailController= {
                 if(!checkAmountResult.isUpdate){
                     return res.status(404).json({success : false, message: "Barang " + dataTransactionDetail.shop_name + " " + checkAmountResult.message})
                 }
+                const data = await TransactionDetail.findByIdAndUpdate({_id:data[i].id},transactiondetail,{new:true});
             }
             
             

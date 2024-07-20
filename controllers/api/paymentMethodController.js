@@ -105,9 +105,14 @@ module.exports = {
             const page = parseInt(req.query.page,10);
             const pageSize = parseInt(req.query.pageSize,10);
             const search = req.query.search;
+            const active = req.query.active;
+            console.log(typeof active);
             let filter = {};
             if(search){
                 filter.name = {$regex : '.*' + search + '.*', $options:'i'}
+            }
+            if(active){
+                filter.is_active = active === 'true' ? true : false;
             }
             const data = await PaymentMethod.find(filter)
                 .skip((page > 0 ? page - 1 : page)*pageSize)
