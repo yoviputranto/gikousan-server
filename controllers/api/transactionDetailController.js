@@ -230,6 +230,7 @@ var transactionDetailController= {
                               paid_amount : "$paid_amount"
                             }
                         },
+                        total_bill:{$sum : "$shopping.bill"}
                         
                     }
                 }
@@ -245,17 +246,22 @@ var transactionDetailController= {
     },
     fillAmountTransactionDetail: async(req,res)=>{
         try{
-            const{
-                transaction_id,
-                data
-            } = req.body;
+            // const{
+            //     transaction_id,
+            //     data
+            // } = req.body;
+            const transaction_id = req.body.transaction_id;
+            const data= req.body.data;
             console.log(data);
+            let dataUpdate = [];
             for(i=0;i < data.length;i++){
-                console.log(data[i].id)
+                console.log(i)
+                console.log(data[i])
                 const dataTransactionDetail = await TransactionDetail.findById(data[i].id);
                 if(!dataTransactionDetail){
                     return res.status(404).json({success : false, message:"Transaction Detail not found"});
                 }
+                console.log(dataTransactionDetail)
                 const transactiondetail = {
                     paid_amount : data[i].paid_amount,
                     shop_name : dataTransactionDetail.shop_name,
@@ -268,16 +274,27 @@ var transactionDetailController= {
                 if (validation.fails()) {
                     return res.status(400).json({success : false, message:validation.errors.all()});
                 }
-                let checkAmountResult = transactionDetailController.checkAmount(dataTransactionDetail.shopping_id,data[i].paid_amount)
+                let checkAmountResult = await transactionDetailController.checkAmount(dataTransactionDetail.shopping_id,data[i].paid_amount,dataTransactionDetail.paid_amount)
                 console.log(checkAmountResult)
                 if(!checkAmountResult.isUpdate){
                     return res.status(404).json({success : false, message: "Barang " + dataTransactionDetail.shop_name + " " + checkAmountResult.message})
                 }
-                const data = await TransactionDetail.findByIdAndUpdate({_id:data[i].id},transactiondetail,{new:true});
+                dataUpdate.push(
+                    {
+                        transaction_detail:{_id:data[i].id,data: transactiondetail},
+                        shopping:{_id:dataTransactionDetail.shopping_id,data: checkAmountResult.data}
+                    })
+                // TransactionDetail.findByIdAndUpdate({_id:data[i].id},transactiondetail);
+                // Shopping.findByIdAndUpdate({_id:dataTransactionDetail.shopping_id},checkAmountResult.data);
             }
             
-            
-            
+            console.log(dataUpdate)
+            for(i=0;i<dataUpdate.length;i++){
+                // console.log(dataUpdate[i].shopping._id)
+                // console.log(dataUpdate[i].shopping.data)
+                await TransactionDetail.findByIdAndUpdate({_id:dataUpdate[i].transaction_detail._id},dataUpdate[i].transaction_detail.data);
+                await Shopping.findByIdAndUpdate({_id:dataUpdate[i].shopping._id},dataUpdate[i].shopping.data);
+            }
             // const transaction = await Transaction.findOne({_id : transaction_id});
             // if(!transaction){
             //     return res.status(404).json({ success : false, message:"Transaction not found"});
@@ -289,7 +306,7 @@ var transactionDetailController= {
             // }
             
             //const data = await TransactionDetail.findByIdAndUpdate({_id:req.params.id},transactiondetail,{new:true});
-            return res.status(200).json({success: true, message:"payment successful"});
+            return res.status(200).json({success: true, message:"Payment Successful"});
         }catch(error){
             console.log(error);
             return res.status(500).json({success: false, message: "Internal Server Error"});
@@ -297,24 +314,29 @@ var transactionDetailController= {
         
     },
 
-    checkAmount:  function(shopping_id,paid_amount){
-        const shopping = Shopping.findById(shopping_id);
+    checkAmount:  async(shopping_id,paid_amount,paid_amount_before)=>{
+        console.log("shopping")
+        console.log(shopping_id)
+        const shopping =await Shopping.findById(shopping_id);
         if(!shopping){
             return res.status(404).json({success : false, message:"Shopping not found"});
         }
+        console.log("data shopping")
+        console.log(shopping)
         let isUpdate = false;
         let message = "";
         let dataShopping = {};
+        console.log("bill")
         console.log(shopping.bill);
-        if(shopping.status == "Belum Lunas"){
+        if(paid_amount_before > 0){
             let currentAmount = 0;
-            
-            if(paid_amount < shopping.bill){
-                currentAmount = shopping.bill - paid_amount;
-                dataShopping.bill = currentAmount;
-                isUpdate = true;
-                message = "Lunas Sebagian"
-            }else if(paid_amount == shopping.bill){
+            if(paid_amount < shopping.bill + paid_amount_before){
+                currentAmount = shopping.bill + paid_amount_before - paid_amount;
+                dataShopping.status = "Belum Lunas";
+                dataShopping.bill= currentAmount;
+                isUpdate=true;
+                message="Lunas Sebagian";
+            }else if(paid_amount == shopping.bill + paid_amount_before){
                 dataShopping.status = "Lunas"
                 dataShopping.bill = currentAmount;
                 isUpdate = true;
@@ -323,8 +345,27 @@ var transactionDetailController= {
                 message = "Nominal yang dibayar melebihi jumlah tagihan"
             }
         }else{
-            message = "Tagihan sudah lunas";
+            if(shopping.status == "Belum Lunas"){
+                let currentAmount = 0;
+                
+                if(paid_amount < shopping.bill){
+                    currentAmount = shopping.bill - paid_amount;
+                    dataShopping.bill = currentAmount;
+                    isUpdate = true;
+                    message = "Lunas Sebagian"
+                }else if(paid_amount == shopping.bill){
+                    dataShopping.status = "Lunas"
+                    dataShopping.bill = currentAmount;
+                    isUpdate = true;
+                    message = "Lunas"
+                }else{
+                    message = "Nominal yang dibayar melebihi jumlah tagihan"
+                }
+            }else{
+                message = "Tagihan sudah lunas";
+            }
         }
+        
         return{
             isUpdate : isUpdate,
             message : message,

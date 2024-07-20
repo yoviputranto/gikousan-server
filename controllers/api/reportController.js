@@ -98,6 +98,7 @@ module.exports={
             // const shoptype = req.query.shoptype;
             //console.log(req.params.id);
             const shopping = await Shopping.find({customer_id:req.params.id})
+            const customer_id = new mongoose.Types.ObjectId(req.params.id);
             const data = await Shopping.aggregate([
                 {
                     $lookup: {
@@ -165,7 +166,20 @@ module.exports={
                     }
                 }
             ])
-            res.status(200).json({success: true, data : shopping});
+            const totalBill= await Shopping.aggregate([
+                {
+                    $match :{
+                        customer_id : customer_id
+                    }
+                },
+                {
+                    $group:{
+                        "_id":null,
+                        total_bill : {$sum:"$bill"}
+                    }
+                }
+            ])
+            res.status(200).json({success: true, data : data, totalBill:totalBill[0].total_bill});
         } catch (error) {
             console.log(error);
             return res.status(500).json({success:false,message: "Internal Server Error"});

@@ -23,6 +23,9 @@ const validationRulesTransactionDetail = {
 module.exports= {
     createTransaction: async(req,res)=>{
         try{
+            if(req.body.is_in == true){
+
+            }
             const{
                 is_in,
                 issued_at,
@@ -63,13 +66,28 @@ module.exports= {
             }
     
             const data = await Transaction.create(dataTransaction);
-            for(i=0; i<transaction_details.length;i++){
+            if(is_in == true){
+                for(i=0; i<transaction_details.length;i++){
+                    let dataTransactionDetail={
+                        paid_amount:0,
+                        shop_name:transaction_details[i].product_name,
+                        description:null,
+                        transaction_id:data.id,
+                        shopping_id:transaction_details[i].shopping_id
+                    }
+                    let validationDetail = new Validator(dataTransactionDetail,validationRulesTransactionDetail);
+                    if (validationDetail.fails()) {
+                        return res.status(400).json({success : false, message:validationDetail.errors.all()});
+                    }
+                    let transactiondetail = await TransactionDetail.create(dataTransactionDetail);
+                    console.log(transactiondetail)
+                }
+            }else{
                 let dataTransactionDetail={
-                    paid_amount:0,
-                    shop_name:transaction_details[i].product_name,
+                    paid_amount:req.body.total,
+                    shop_name:transaction_details,
                     description:null,
-                    transaction_id:data.id,
-                    shopping_id:transaction_details[i].shopping_id
+                    transaction_id:data.id
                 }
                 let validationDetail = new Validator(dataTransactionDetail,validationRulesTransactionDetail);
                 if (validationDetail.fails()) {
@@ -78,6 +96,7 @@ module.exports= {
                 let transactiondetail = await TransactionDetail.create(dataTransactionDetail);
                 console.log(transactiondetail)
             }
+            
     
             res.status(201).json({ success: true, message : "Data created", data});
         }catch(error){

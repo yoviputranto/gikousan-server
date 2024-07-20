@@ -37,7 +37,8 @@ module.exports= {
                 shop_category_id : shop_category_id,
                 customer_id : customer_id,
                 category : category,
-                status : status
+                status : status,
+                bill : price
             }
             const validation = new Validator(dataShopping,validationRules);
             if (validation.fails()) {

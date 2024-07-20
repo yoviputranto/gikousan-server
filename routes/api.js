@@ -10,11 +10,14 @@ const transactionDetailController = require('../controllers/api/transactionDetai
 const shoppingController = require('../controllers/api/shoppingController');
 const authController = require('../controllers/api/authController');
 const reportController = require('../controllers/api/reportController');
+const homeController = require('../controllers/api/homeController');
 const { uploadSingle } = require('../middlewares/multer');
 const ShopCategory = require('../models/ShopCategory');
 const auth = require('../middlewares/auth');
 
 router.get('/test-connection',apiController.testConnection);
+
+router.get('/home',auth,homeController.getTotal);
 
 router.post('/login', authController.login);
 router.post('/logout',auth,authController.logout);
