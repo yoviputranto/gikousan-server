@@ -64,7 +64,7 @@ router.get('/transaction/:id',auth,transactionController.readDetailTransaction);
 router.post('/transaction/',auth, uploadSingle, transactionController.createTransaction);
 router.patch('/transaction/:id',auth,uploadSingle,transactionController.editTransaction);
 router.delete('/transaction/:id',auth,transactionController.deleteTransaction);
-
+router.get('/transaction/summary/finance',auth,transactionController.getDataFinance);
 //shop category
 router.get('/transaction-detail',auth,transactionDetailController.readTransactionDetail);
 router.get('/transaction-detail/:id',auth,transactionDetailController.readDetailTransactionDetail);

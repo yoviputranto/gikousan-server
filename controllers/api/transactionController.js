@@ -205,5 +205,137 @@ module.exports= {
             console.log(error);
             res.status(500).json({success: false, message:"Internal Server Error"});
         }
+    },
+
+    getDataFinance: async(req,res)=>{
+        try {
+            console.log("test")
+            const paymentmethod = await TransactionDetail.aggregate([
+                {
+                    $lookup: {
+                      from: "transactions", // events collection name
+                      localField: "transaction_id",
+                      foreignField: "_id",
+                      as: "transaction",
+                    },
+                },
+                {
+                    $lookup: {
+                      from: "paymentmethods", // events collection name
+                      localField: "transaction.payment_method_id",
+                      foreignField: "_id",
+                      as: "paymentmethod",
+                    },
+                },
+
+                {
+                    $unwind: {
+                        path: '$transaction',
+                        preserveNullAndEmptyArrays: true
+                    }
+                },
+                {
+                    $unwind: {
+                        path: '$paymentmethod',
+                        preserveNullAndEmptyArrays: true
+                    }
+                },
+                {
+                    $group:{
+                        "_id":"$transaction.payment_method_id",
+                        name : {$first : "$paymentmethod.name"},
+                        total : {$sum : "$paid_amount"},
+                        
+                    }
+                }
+            ])
+            console.log(paymentmethod)
+            const totalamount = await TransactionDetail.aggregate([
+                {
+                    $group:{
+                        "_id":null,
+                        total : {$sum : "$paid_amount"},
+                        
+                    }
+                }
+            ])
+            console.log(totalamount)
+            const transaction = await TransactionDetail.aggregate([
+                {
+                    $lookup: {
+                      from: "transactions", // events collection name
+                      localField: "transaction_id",
+                      foreignField: "_id",
+                      as: "transaction",
+                    },
+                },
+                {
+                    $lookup: {
+                      from: "paymentmethods", // events collection name
+                      localField: "transaction.payment_method_id",
+                      foreignField: "_id",
+                      as: "paymentmethod",
+                    },
+                },
+                {
+                    $lookup: {
+                      from: "customers", // events collection name
+                      localField: "transaction.customer_id",
+                      foreignField: "_id",
+                      as: "customer",
+                    },
+                },
+                {
+                    $unwind: {
+                        path: '$transaction',
+                        preserveNullAndEmptyArrays: true
+                    }
+                },
+                {
+                    $unwind: {
+                        path: '$paymentmethod',
+                        preserveNullAndEmptyArrays: true
+                    }
+                },
+                {
+                    $unwind: {
+                        path: '$customer',
+                        preserveNullAndEmptyArrays: true
+                    }
+                },
+                {
+                    $group:{
+                        "_id":"$transaction_id",
+                        description : {$first : "$customer.name"},
+                        total : {$sum : "$paid_amount"},
+                        is_in : {$first : "$transaction.is_in"},
+                        date : {$first : "$transaction.issued_at"},
+                        payment_name : {$first:"$paymentmethod.name"}
+                    }
+                }
+            ])
+            console.log(transaction)
+            console.log({
+                success:true,
+                data:{
+                    total_amount: totalamount[0].total,
+                    payment_method:paymentmethod[0],
+                    transaction:transaction[0]
+                }
+            })
+            return res.status(200).json({
+                success:true,
+                data:{
+                    total_amount: totalamount[0].total,
+                    payment_method:paymentmethod,
+                    transaction:transaction
+                }
+            })
+        } catch (error) {
+            console.log(error)
+            return res.status(500).json({success:false, message:error})
+        }
     }
+
+
 }

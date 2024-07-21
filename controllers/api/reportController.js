@@ -97,6 +97,7 @@ module.exports={
         try {
             // const shoptype = req.query.shoptype;
             //console.log(req.params.id);
+            const customer = await Customer.findById(req.params.id);
             const shopping = await Shopping.find({customer_id:req.params.id})
             const customer_id = new mongoose.Types.ObjectId(req.params.id);
             const data = await Shopping.aggregate([
@@ -179,7 +180,7 @@ module.exports={
                     }
                 }
             ])
-            res.status(200).json({success: true, data : data, totalBill:totalBill[0].total_bill});
+            res.status(200).json({success: true, data : data, totalBill:totalBill[0].total_bill, customerName:customer.name});
         } catch (error) {
             console.log(error);
             return res.status(500).json({success:false,message: "Internal Server Error"});
@@ -219,7 +220,8 @@ module.exports={
                             $push: {
                               product_name: "$product_name",
                               product_qty: "$product_qty",
-                              price : "$price"
+                              price : "$price",
+                              status:"$status"
                             }
                         },
                         

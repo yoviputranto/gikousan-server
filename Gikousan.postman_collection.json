@@ -668,7 +668,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{url}}/api/v1/shopping?page=1&pageSize=10&shopType=all&customer=668d330f4fe0283aea519c24&search=product",
+							"raw": "{{url}}/api/v1/shopping?page=1&pageSize=10&shopType=all&customer=668d330f4fe0283aea519c24&search=bill",
 							"host": [
 								"{{url}}"
 							],
@@ -696,7 +696,7 @@
 								},
 								{
 									"key": "search",
-									"value": "product"
+									"value": "bill"
 								}
 							]
 						}
@@ -849,7 +849,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{url}}/api/v1/transaction?page=1&pageSize=2",
+							"raw": "{{url}}/api/v1/transaction?page=2&pageSize=30",
 							"host": [
 								"{{url}}"
 							],
@@ -861,11 +861,11 @@
 							"query": [
 								{
 									"key": "page",
-									"value": "1"
+									"value": "2"
 								},
 								{
 									"key": "pageSize",
-									"value": "2"
+									"value": "30"
 								}
 							]
 						}
@@ -875,15 +875,9 @@
 				{
 					"name": "Get Transaction",
 					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": {
-								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjdlYTQ4YjMxYWYwNzBhYzk2ZGQ4ODIiLCJpYXQiOjE3MTk1ODI5NTd9.Yu8msXdp37QapPwsieD5gwzD-WSU2CEI2ibE9un4lBE"
-							}
-						},
 						"method": "GET",
 						"header": [],
-						"url": "{{url}}/api/v1/transaction/668dd5511360482fd8ab5bf3"
+						"url": "{{url}}/api/v1/transaction/669bd19c98f1c5604b7e1588"
 					},
 					"response": []
 				},
@@ -923,6 +917,15 @@
 						"method": "DELETE",
 						"header": [],
 						"url": "{{url}}/api/v1/transaction/668dd5511360482fd8ab5bf3"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Finance",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{url}}/api/v1/transaction/summary/finance"
 					},
 					"response": []
 				}
@@ -1043,7 +1046,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{url}}/api/v1/transaction-detail/transaction/6695f249d861be43d456d130",
+							"raw": "{{url}}/api/v1/transaction-detail/transaction/669bd19c98f1c5604b7e1588",
 							"host": [
 								"{{url}}"
 							],
@@ -1052,7 +1055,7 @@
 								"v1",
 								"transaction-detail",
 								"transaction",
-								"6695f249d861be43d456d130"
+								"669bd19c98f1c5604b7e1588"
 							],
 							"query": [
 								{
@@ -1077,7 +1080,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"transaction_id\" : \"669b8ef676c363e8aaba7a1c\",\n    \"data\": [\n        {\n            \"id\": \"669b8ef676c363e8aaba7a1e\",\n            \"paid_amount\": 0\n            \n        },\n        {\n            \"id\": \"669b8ef676c363e8aaba7a20\",\n            \"paid_amount\": 0\n        }\n        \n    ]\n}",
+							"raw": "{\n    \"transaction_id\" : \"669bd19c98f1c5604b7e1588\",\n    \"data\": [\n        {\n            \"id\": \"669bd19c98f1c5604b7e158a\",\n            \"paid_amount\": 20000\n            \n        },\n        {\n            \"id\": \"669bd19c98f1c5604b7e158c\",\n            \"paid_amount\": 70000\n        }\n        \n    ]\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1085,7 +1088,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{url}}/api/v1/transaction-detail/transaction/669b8ef676c363e8aaba7a1c",
+							"raw": "{{url}}/api/v1/transaction-detail/transaction/669bd19c98f1c5604b7e1588",
 							"host": [
 								"{{url}}"
 							],
@@ -1094,7 +1097,7 @@
 								"v1",
 								"transaction-detail",
 								"transaction",
-								"669b8ef676c363e8aaba7a1c"
+								"669bd19c98f1c5604b7e1588"
 							],
 							"query": [
 								{
@@ -1165,7 +1168,7 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": "{{url}}/api/v1/report/category/66914eadd92908687a0cc96f"
+						"url": "{{url}}/api/v1/report/category/669315445f5240bcef6f7c38"
 					},
 					"response": []
 				},
@@ -1175,7 +1178,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{url}}/api/v1/report/category?page=1&pageSize=10&shopType=all&search=group",
+							"raw": "{{url}}/api/v1/report/category?page=1&pageSize=10&shopType=sharing-group",
 							"host": [
 								"{{url}}"
 							],
@@ -1196,11 +1199,12 @@
 								},
 								{
 									"key": "shopType",
-									"value": "all"
+									"value": "sharing-group"
 								},
 								{
 									"key": "search",
-									"value": "group"
+									"value": "group",
+									"disabled": true
 								}
 							]
 						}
