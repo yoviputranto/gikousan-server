@@ -6,12 +6,19 @@ const TransactionDetail = require('../../models/TransactionDetail')
 const fs = require('fs-extra');
 const path = require('path');
 const Validator = require('validatorjs');
+const mongoose = require("mongoose");
 
-const validationRulesTransaction = {
+const validationRulesInTransaction = {
     is_in: 'required|boolean',
     issued_at: 'date',
     payment_method_id:'required',
     customer_id:'required',
+    admin_id:'required'
+};
+const validationRulesOutTransaction = {
+    is_in: 'required|boolean',
+    issued_at: 'date',
+    payment_method_id:'required',
     admin_id:'required'
 };
 const validationRulesTransactionDetail = {
@@ -23,9 +30,7 @@ const validationRulesTransactionDetail = {
 module.exports= {
     createTransaction: async(req,res)=>{
         try{
-            if(req.body.is_in == true){
-
-            }
+            
             const{
                 is_in,
                 issued_at,
@@ -34,39 +39,36 @@ module.exports= {
                 customer_id,
                 transaction_details
             } = req.body;
-            //console.log(transaction_details)
             
-            // return res.status(200).json({success:true});
-            
-            const dataTransaction = {
-                is_in : is_in,
-                issued_at : issued_at,
-                admin_id : admin_id,
-                payment_method_id : payment_method_id,
-                customer_id : customer_id
-            }
-            console.log(dataTransaction)
-            const validation = new Validator(dataTransaction,validationRulesTransaction);
-            if (validation.fails()) {
-                return res.status(400).json({success : false, message:validation.errors.all()});
-            }
-            const admin = await Admin.findOne({_id : admin_id});
-            if(!admin){
-                return res.status(404).json({ success: false, message:"Admin not found"});
-            }
-
-            const paymentmethod = await PaymentMethod.findById(payment_method_id);
-            if(!paymentmethod){
-                return res.status(404).json({success: false, message:"Payment Method not found"});
-            }
-
-            const customer = await Customer.findById(customer_id);
-            if(!customer){
-                return res.status(404).json({success: false, message:"Customer not found"});
-            }
-    
-            const data = await Transaction.create(dataTransaction);
             if(is_in == true){
+                const dataTransaction = {
+                    is_in : is_in,
+                    issued_at : issued_at,
+                    admin_id : admin_id,
+                    payment_method_id : payment_method_id,
+                    customer_id : customer_id
+                }
+                console.log(dataTransaction)
+                const validation = new Validator(dataTransaction,validationRulesInTransaction);
+                if (validation.fails()) {
+                    return res.status(400).json({success : false, message:validation.errors.all()});
+                }
+                const admin = await Admin.findOne({_id : admin_id});
+                if(!admin){
+                    return res.status(404).json({ success: false, message:"Admin not found"});
+                }
+    
+                const paymentmethod = await PaymentMethod.findById(payment_method_id);
+                if(!paymentmethod){
+                    return res.status(404).json({success: false, message:"Payment Method not found"});
+                }
+    
+                const customer = await Customer.findById(customer_id);
+                if(!customer){
+                    return res.status(404).json({success: false, message:"Customer not found"});
+                }
+        
+                const data = await Transaction.create(dataTransaction);
                 for(i=0; i<transaction_details.length;i++){
                     let dataTransactionDetail={
                         paid_amount:0,
@@ -83,6 +85,33 @@ module.exports= {
                     console.log(transactiondetail)
                 }
             }else{
+                const dataTransaction = {
+                    is_in : is_in,
+                    issued_at : issued_at,
+                    admin_id : admin_id,
+                    payment_method_id : payment_method_id,
+                }
+                console.log(dataTransaction)
+                const validation = new Validator(dataTransaction,validationRulesOutTransaction);
+                if (validation.fails()) {
+                    return res.status(400).json({success : false, message:validation.errors.all()});
+                }
+                const admin = await Admin.findOne({_id : admin_id});
+                if(!admin){
+                    return res.status(404).json({ success: false, message:"Admin not found"});
+                }
+    
+                const paymentmethod = await PaymentMethod.findById(payment_method_id);
+                if(!paymentmethod){
+                    return res.status(404).json({success: false, message:"Payment Method not found"});
+                }
+    
+                const customer = await Customer.findById(customer_id);
+                if(!customer){
+                    return res.status(404).json({success: false, message:"Customer not found"});
+                }
+        
+                const data = await Transaction.create(dataTransaction);
                 let dataTransactionDetail={
                     paid_amount:req.body.total,
                     shop_name:transaction_details,
@@ -118,17 +147,35 @@ module.exports= {
                 customer_id
             } = req.body;
             
-            const transaction = {
-                is_in : is_in,
-                issued_at : issued_at,
-                admin_id : admin_id,
-                payment_method_id : payment_method_id,
-                customer_id : customer_id
+            if(is_in == true){
+                const transaction = {
+                    is_in : is_in,
+                    issued_at : issued_at,
+                    admin_id : admin_id,
+                    payment_method_id : payment_method_id,
+                    customer_id : customer_id
+                }
+                const validation = new Validator(transaction,validationRulesInTransaction);
+                if (validation.fails()) {
+                    return res.status(400).json({success : false, message:validation.errors.all()});
+                }
+                const customer = await Customer.findById(customer_id);
+                if(!customer){
+                    return res.status(404).json({success: false, message:"Customer not found"});
+                }
+            }else{
+                const transaction = {
+                    is_in : is_in,
+                    issued_at : issued_at,
+                    admin_id : admin_id,
+                    payment_method_id : payment_method_id
+                }
+                const validation = new Validator(transaction,validationRulesOutTransaction);
+                if (validation.fails()) {
+                    return res.status(400).json({success : false, message:validation.errors.all()});
+                }
             }
-            const validation = new Validator(transaction,validationRulesTransaction);
-            if (validation.fails()) {
-                return res.status(400).json({success : false, message:validation.errors.all()});
-            }
+            
             const dataTransaction = await Transaction.findById(req.params.id);
             if(!dataTransaction){
                 return res.status(404).json({success: false, message:"Transaction not found"});
@@ -143,10 +190,6 @@ module.exports= {
                 return res.status(404).json({success: false, message:"Payment Method not found"});
             }
 
-            const customer = await Customer.findById(customer_id);
-            if(!customer){
-                return res.status(404).json({success: false, message:"Customer not found"});
-            }
             
             console.log(dataTransaction);
             const data = await Transaction.findByIdAndUpdate({_id:req.params.id},transaction,{new:true});
@@ -210,6 +253,24 @@ module.exports= {
     getDataFinance: async(req,res)=>{
         try {
             console.log("test")
+            const filter = {};
+            filter["transaction.payment_method_id"] = {$ne:null};
+            if(req.query.paymentMethod){
+                const payment_method = new mongoose.Types.ObjectId(req.query.paymentMethod);
+                filter["transaction.payment_method_id"] = payment_method;
+            }
+            if(req.query.startDate && req.query.endDate){
+                filter["transaction.issued_at"] = {
+                    $gte:new Date(req.query.startDate),
+                    $lte:new Date(req.query.endDate)
+                }
+            }else if(req.query.startDate){
+                filter["transaction.issued_at"] = {$gte:new Date(req.query.startDate)}
+                
+            }else if(req.query.endDate){
+                filter["transaction.issued_at"] = {$lte:new Date(req.query.endDate)}
+            }
+            
             const paymentmethod = await TransactionDetail.aggregate([
                 {
                     $lookup: {
@@ -241,6 +302,9 @@ module.exports= {
                     }
                 },
                 {
+                    $match:filter
+                },
+                {
                     $group:{
                         "_id":"$transaction.payment_method_id",
                         name : {$first : "$paymentmethod.name"},
@@ -252,6 +316,23 @@ module.exports= {
             console.log(paymentmethod)
             const totalamount = await TransactionDetail.aggregate([
                 {
+                    $lookup: {
+                      from: "transactions", // events collection name
+                      localField: "transaction_id",
+                      foreignField: "_id",
+                      as: "transaction",
+                    },
+                },
+                {
+                    $unwind: {
+                        path: '$transaction',
+                        preserveNullAndEmptyArrays: true
+                    }
+                },
+                {
+                    $match:filter
+                },
+                {
                     $group:{
                         "_id":null,
                         total : {$sum : "$paid_amount"},
@@ -259,6 +340,7 @@ module.exports= {
                     }
                 }
             ])
+            console.log("total")
             console.log(totalamount)
             const transaction = await TransactionDetail.aggregate([
                 {
@@ -302,6 +384,9 @@ module.exports= {
                         path: '$customer',
                         preserveNullAndEmptyArrays: true
                     }
+                },
+                {
+                    $match:filter
                 },
                 {
                     $group:{
