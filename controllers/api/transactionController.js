@@ -105,11 +105,6 @@ module.exports= {
                 if(!paymentmethod){
                     return res.status(404).json({success: false, message:"Payment Method not found"});
                 }
-    
-                const customer = await Customer.findById(customer_id);
-                if(!customer){
-                    return res.status(404).json({success: false, message:"Customer not found"});
-                }
         
                 const data = await Transaction.create(dataTransaction);
                 let dataTransactionDetail={
