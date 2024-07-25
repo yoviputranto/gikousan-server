@@ -84,6 +84,7 @@ module.exports= {
                     let transactiondetail = await TransactionDetail.create(dataTransactionDetail);
                     console.log(transactiondetail)
                 }
+                res.status(201).json({ success: true, message : "Data created", data});
             }else{
                 const dataTransaction = {
                     is_in : is_in,
@@ -119,10 +120,11 @@ module.exports= {
                 }
                 let transactiondetail = await TransactionDetail.create(dataTransactionDetail);
                 console.log(transactiondetail)
+                res.status(201).json({ success: true, message : "Data created", data});
             }
             
     
-            res.status(201).json({ success: true, message : "Data created", data});
+            
         }catch(error){
             console.log(error);
             return res.status(500).json({success: false, message : " Internal Server Error"});
