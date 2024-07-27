@@ -97,10 +97,10 @@ var transactionDetailController= {
                 return res.status(404).json({ success : false, message:"Transaction not found"});
             }
 
-            const shopping = await Shopping.findById(shopping_id);
-            if(!shopping){
-                return res.status(404).json({success : false, message:"Shopping not found"});
-            }
+            // const shopping = await Shopping.findById(shopping_id);
+            // if(!shopping){
+            //     return res.status(404).json({success : false, message:"Shopping not found"});
+            // }
             
             const data = await TransactionDetail.findByIdAndUpdate({_id:req.params.id},transactiondetail,{new:true});
             return res.status(200).json({success: true, data});

@@ -251,10 +251,13 @@ module.exports= {
         try {
             console.log("test")
             const filter = {};
+            let filterPaymentMethod = {};
             filter["transaction.payment_method_id"] = {$ne:null};
+            filter["paymentmethod.is_active"] = {$eq:true};
             if(req.query.paymentMethod){
                 const payment_method = new mongoose.Types.ObjectId(req.query.paymentMethod);
                 filter["transaction.payment_method_id"] = payment_method;
+                filterPaymentMethod._id = payment_method
             }
             if(req.query.startDate && req.query.endDate){
                 filter["transaction.issued_at"] = {
@@ -268,7 +271,53 @@ module.exports= {
                 filter["transaction.issued_at"] = {$lte:new Date(req.query.endDate)}
             }
             
-            const paymentmethod = await TransactionDetail.aggregate([
+            filterPaymentMethod.is_active = {$eq:true};
+            filterPaymentMethod["transaction"] = {$exists:false};
+            
+            const paymentmethodWithoutTransaction = await PaymentMethod.aggregate([
+                {
+                    $lookup: {
+                        from: "transactions", // events collection name
+                        localField: "_id",
+                        foreignField: "payment_method_id",
+                        as: "transaction",
+                      },
+                },
+                {
+                    $lookup: {
+                        from: "transactiondetails", // events collection name
+                        localField: "transaction._id",
+                        foreignField: "transaction_id",
+                        as: "transactiondetail",
+                      },
+                },
+                {
+                    $unwind: {
+                      path: '$transaction',
+                      preserveNullAndEmptyArrays: true
+                    }
+                },
+                {
+                    $unwind: {
+                      path: '$transactiondetail',
+                      preserveNullAndEmptyArrays: true
+                    }
+                },
+                {
+                    $match:filterPaymentMethod
+                },
+                {
+                    $group:{
+                        "_id":"$_id",
+                        name:{$first:"$name"},
+                        total:{
+                            $sum:"$transaction.transactiondetail.paid_amount"
+                        }
+                    }
+                }
+            ])
+            //console.log(test);
+            let paymentmethodWithTransaction = await TransactionDetail.aggregate([
                 {
                     $lookup: {
                       from: "transactions", // events collection name
@@ -303,14 +352,15 @@ module.exports= {
                 },
                 {
                     $group:{
-                        "_id":"$transaction.payment_method_id",
+                        "_id":"$paymentmethod._id",
                         name : {$first : "$paymentmethod.name"},
                         total : {$sum : "$paid_amount"},
                         
                     }
                 }
             ])
-            console.log(paymentmethod)
+            paymentmethodWithTransaction = paymentmethodWithTransaction.concat(paymentmethodWithoutTransaction)
+            console.log(paymentmethodWithTransaction)
             const totalamount = await TransactionDetail.aggregate([
                 {
                     $lookup: {
@@ -321,8 +371,22 @@ module.exports= {
                     },
                 },
                 {
+                    $lookup: {
+                      from: "paymentmethods", // events collection name
+                      localField: "transaction.payment_method_id",
+                      foreignField: "_id",
+                      as: "paymentmethod",
+                    },
+                },
+                {
                     $unwind: {
                         path: '$transaction',
+                        preserveNullAndEmptyArrays: true
+                    }
+                },
+                {
+                    $unwind: {
+                        path: '$paymentmethod',
                         preserveNullAndEmptyArrays: true
                     }
                 },
@@ -388,7 +452,10 @@ module.exports= {
                 {
                     $group:{
                         "_id":"$transaction_id",
-                        description : {$first : "$customer.name"},
+                        description : {$first:{$cond:{
+                            if:{$eq:["$transaction.is_in",true]},
+                            then:{$concat:["Pembayaran dari ","$customer.name"]},
+                            else:{$concat:["Pembelian ","$shop_name"]}}}},
                         total : {$sum : "$paid_amount"},
                         is_in : {$first : "$transaction.is_in"},
                         date : {$first : "$transaction.issued_at"},
@@ -397,19 +464,19 @@ module.exports= {
                 }
             ])
             console.log(transaction)
-            console.log({
-                success:true,
-                data:{
-                    total_amount: totalamount[0].total,
-                    payment_method:paymentmethod[0],
-                    transaction:transaction[0]
-                }
-            })
+            // console.log({
+            //     success:true,
+            //     data:{
+            //         total_amount: totalamount[0].total,
+            //         payment_method:paymentmethod[0],
+            //         transaction:transaction[0]
+            //     }
+            // })
             return res.status(200).json({
                 success:true,
                 data:{
-                    total_amount: totalamount[0].total,
-                    payment_method:paymentmethod,
+                    total_amount: totalamount.length > 0?totalamount[0].total:0,
+                    payment_method:paymentmethodWithTransaction,
                     transaction:transaction
                 }
             })

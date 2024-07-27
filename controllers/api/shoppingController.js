@@ -6,6 +6,7 @@ const path = require('path');
 const Validator = require('validatorjs');
 const ShopType = require('../../models/ShopType');
 const mongoose = require("mongoose");
+const { timeStamp } = require('console');
 
 const validationRules = {
     price: 'required|integer',
@@ -38,7 +39,8 @@ module.exports= {
                 customer_id : customer_id,
                 category : category,
                 status : status,
-                bill : price
+                bill : price,
+                shopping_date : new Date()
             }
             const validation = new Validator(dataShopping,validationRules);
             if (validation.fails()) {

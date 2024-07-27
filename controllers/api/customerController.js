@@ -4,7 +4,8 @@ const Validator = require('validatorjs');
 const validationRules = {
     name: 'required|string',
     phone: 'required|string',
-    instagram: 'string'
+    instagram: 'string',
+    tiktok: 'string'
 };
 
 module.exports = {
@@ -18,6 +19,7 @@ module.exports = {
                 name,
                 phone,
                 instagram,
+                tiktok
             } = req.body;
     
             if(name == null){
@@ -27,7 +29,8 @@ module.exports = {
             const data= await Customer.create({
                 name,
                 phone,
-                instagram
+                instagram,
+                tiktok
             });
     
             res.status(201).json({success:true, message : "Data created", data});

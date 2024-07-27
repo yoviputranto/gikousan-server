@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const { date } = require("validatorjs/src/lang/en");
 const { ObjectId } = mongoose.Schema;
 
 const shoppingSchema = new mongoose.Schema({
@@ -32,6 +33,9 @@ const shoppingSchema = new mongoose.Schema({
     },
     bill:{
         type: Number
+    },
+    shopping_date:{
+        type: Date
     }
 })
 
