@@ -4,7 +4,7 @@
 		"name": "Gikousan",
 		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
 		"_exporter_id": "15118773",
-		"_collection_link": "https://web.postman.co/workspace/Gikousan-Workspace~934547c5-983c-408e-babf-71bb216f1ff8/collection/15118773-3dd61379-6958-477c-9fbb-1d0cb5b1f520?action=share&source=collection_link&creator=15118773"
+		"_collection_link": "https://gikousan.postman.co/workspace/Gikousan-Workspace~934547c5-983c-408e-babf-71bb216f1ff8/collection/15118773-3dd61379-6958-477c-9fbb-1d0cb5b1f520?action=share&source=collection_link&creator=15118773"
 	},
 	"item": [
 		{
@@ -236,7 +236,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{url}}/api/v1/customer?page=1&pageSize=5&search=irfan",
+							"raw": "{{url}}/api/v1/customer?page=1&pageSize=5",
 							"host": [
 								"{{url}}"
 							],
@@ -256,7 +256,8 @@
 								},
 								{
 									"key": "search",
-									"value": "irfan"
+									"value": "irfan",
+									"disabled": true
 								}
 							]
 						}
@@ -362,7 +363,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{url}}/api/v1/payment-method?page=1&pageSize=5&search=pay&active=true",
+							"raw": "{{url}}/api/v1/payment-method?page=1&pageSize=5&active=true",
 							"host": [
 								"{{url}}"
 							],
@@ -382,7 +383,8 @@
 								},
 								{
 									"key": "search",
-									"value": "pay"
+									"value": "pay",
+									"disabled": true
 								},
 								{
 									"key": "active",
@@ -396,15 +398,9 @@
 				{
 					"name": "Get Payment Method",
 					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": {
-								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjdlYTQ4YjMxYWYwNzBhYzk2ZGQ4ODIiLCJpYXQiOjE3MTk1ODI5NTd9.Yu8msXdp37QapPwsieD5gwzD-WSU2CEI2ibE9un4lBE"
-							}
-						},
 						"method": "GET",
 						"header": [],
-						"url": "{{url}}/api/v1/payment-method/667ed348693b0791b52fca0c"
+						"url": "{{url}}/api/v1/payment-method/668dd46072a72a1556370587"
 					},
 					"response": []
 				},
@@ -517,7 +513,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{url}}/api/v1/shop-category?page=1&pageSize=9&shopType=all&search=lain",
+							"raw": "{{url}}/api/v1/shop-category?page=1&pageSize=9&shopType=all",
 							"host": [
 								"{{url}}"
 							],
@@ -541,7 +537,8 @@
 								},
 								{
 									"key": "search",
-									"value": "lain"
+									"value": "lain",
+									"disabled": true
 								}
 							]
 						}
@@ -668,7 +665,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{url}}/api/v1/shopping?page=1&pageSize=10&shopType=all&customer=668d330f4fe0283aea519c24&search=bill",
+							"raw": "{{url}}/api/v1/shopping?page=1&pageSize=10&shopType=personal-order",
 							"host": [
 								"{{url}}"
 							],
@@ -687,16 +684,18 @@
 									"value": "10"
 								},
 								{
-									"key": "shopType",
-									"value": "all"
-								},
-								{
 									"key": "customer",
-									"value": "668d330f4fe0283aea519c24"
+									"value": "668d330f4fe0283aea519c24",
+									"disabled": true
 								},
 								{
 									"key": "search",
-									"value": "bill"
+									"value": "bill",
+									"disabled": true
+								},
+								{
+									"key": "shopType",
+									"value": "personal-order"
 								}
 							]
 						}
@@ -832,7 +831,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"is_in\":true,\n    \"issued_at\" : \"07-13-2024\",\n    \"admin_id\" : \"667ea48b31af070ac96dd882\",\n    \"payment_method_id\": \"668dd46072a72a1556370587\",\n    \"customer_id\" : \"668d330f4fe0283aea519c24\",\n    \"transaction_details\" :[\n        {\n            \"shopping_id\":\"66931d8181d74560c0adb0c3\",\n            \"product_name\":\"Product Live Shopping 2\"\n        },\n        {\n            \"shopping_id\":\"66931da681d74560c0adb104\",\n            \"product_name\":\"Product Live Shopping 3\"\n        }\n    ]\n}",
+							"raw": "{\n    \"transaction_details\": [],\n    \"name\": \"PC\",\n    \"description\": \"test\",\n    \"issued_at\": \"07-25-2024\",\n    \"price\": 20000,\n    \"payment_method_id\": \"66939704c53d9c522e81d7a6\",\n    \"is_in\": false,\n    \"admin_id\": \"667ea48b31af070ac96dd882\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -925,7 +924,33 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": "{{url}}/api/v1/transaction/summary/finance"
+						"url": {
+							"raw": "{{url}}/api/v1/transaction/summary/finance?startDate=07-20-2024&endDate=07-25-2024&paymentMethod=669622b63f36f776ef8b1f5b",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"transaction",
+								"summary",
+								"finance"
+							],
+							"query": [
+								{
+									"key": "startDate",
+									"value": "07-20-2024"
+								},
+								{
+									"key": "endDate",
+									"value": "07-25-2024"
+								},
+								{
+									"key": "paymentMethod",
+									"value": "669622b63f36f776ef8b1f5b"
+								}
+							]
+						}
 					},
 					"response": []
 				}
@@ -958,7 +983,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{url}}/api/v1/transaction-detail?page=1&pageSize=16",
+							"raw": "{{url}}/api/v1/transaction-detail?page=1&transaction=66a2663efda7e27289177af9&pageSize=80",
 							"host": [
 								"{{url}}"
 							],
@@ -974,12 +999,11 @@
 								},
 								{
 									"key": "transaction",
-									"value": "669542aac07277095595527d",
-									"disabled": true
+									"value": "66a2663efda7e27289177af9"
 								},
 								{
 									"key": "pageSize",
-									"value": "16"
+									"value": "80"
 								}
 							]
 						}
@@ -1004,24 +1028,18 @@
 				{
 					"name": "Update Transaction Detail",
 					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": {
-								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjdlYTQ4YjMxYWYwNzBhYzk2ZGQ4ODIiLCJpYXQiOjE3MTk1ODI5NTd9.Yu8msXdp37QapPwsieD5gwzD-WSU2CEI2ibE9un4lBE"
-							}
-						},
 						"method": "PATCH",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"paid_amount\":120000,\n    \"shop_name\":\"Shop 3\",\n    \"description\": null,\n    \"transaction_id\": \"668dd5831360482fd8ab5c1f\",\n    \"shopping_id\": \"668d3104174b677d7e81819b\"\n}",
+							"raw": "{\n    \"paid_amount\":-25000,\n    \"shop_name\":\"Mouse\",\n    \"description\": null,\n    \"transaction_id\": \"66a268929626e0500c24d817\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
 								}
 							}
 						},
-						"url": "{{url}}/api/v1/transaction-detail/668de8085040b60d20f3d231"
+						"url": "{{url}}/api/v1/transaction-detail/66a268939626e0500c24d819"
 					},
 					"response": []
 				},
@@ -1046,7 +1064,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{url}}/api/v1/transaction-detail/transaction/669bd19c98f1c5604b7e1588",
+							"raw": "{{url}}/api/v1/transaction-detail/transaction/66a268929626e0500c24d817?page=1&pageSize=10",
 							"host": [
 								"{{url}}"
 							],
@@ -1055,18 +1073,16 @@
 								"v1",
 								"transaction-detail",
 								"transaction",
-								"669bd19c98f1c5604b7e1588"
+								"66a268929626e0500c24d817"
 							],
 							"query": [
 								{
 									"key": "page",
-									"value": "1",
-									"disabled": true
+									"value": "1"
 								},
 								{
 									"key": "pageSize",
-									"value": "10",
-									"disabled": true
+									"value": "10"
 								}
 							]
 						}
@@ -1125,7 +1141,57 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": "{{url}}/api/v1/report/customer/668d330f4fe0283aea519c24"
+						"url": {
+							"raw": "{{url}}/api/v1/report/customer/668d330f4fe0283aea519c24?shopType=669314465f5240bcef6f7b7d",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"report",
+								"customer",
+								"668d330f4fe0283aea519c24"
+							],
+							"query": [
+								{
+									"key": "shopType",
+									"value": "669314465f5240bcef6f7b7d"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "History Report Per Customer",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/v1/report/customer/668d330f4fe0283aea519c24/history?startDate=07-20-2024&endDate=07-25-2024",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"report",
+								"customer",
+								"668d330f4fe0283aea519c24",
+								"history"
+							],
+							"query": [
+								{
+									"key": "startDate",
+									"value": "07-20-2024"
+								},
+								{
+									"key": "endDate",
+									"value": "07-25-2024"
+								}
+							]
+						}
 					},
 					"response": []
 				},
@@ -1135,7 +1201,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{url}}/api/v1/report/customer?search=irfan&page=1&pageSize=10",
+							"raw": "{{url}}/api/v1/report/customer?page=1&pageSize=10",
 							"host": [
 								"{{url}}"
 							],
@@ -1148,7 +1214,8 @@
 							"query": [
 								{
 									"key": "search",
-									"value": "irfan"
+									"value": "irfan",
+									"disabled": true
 								},
 								{
 									"key": "page",
@@ -1168,7 +1235,7 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": "{{url}}/api/v1/report/category/669315445f5240bcef6f7c38"
+						"url": "{{url}}/api/v1/report/category/669314ec5f5240bcef6f7bfa"
 					},
 					"response": []
 				},
@@ -1178,7 +1245,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{url}}/api/v1/report/category?page=1&pageSize=10&shopType=sharing-group",
+							"raw": "{{url}}/api/v1/report/category?page=1&pageSize=10&shopType=live-shopping",
 							"host": [
 								"{{url}}"
 							],
@@ -1198,13 +1265,13 @@
 									"value": "10"
 								},
 								{
-									"key": "shopType",
-									"value": "sharing-group"
-								},
-								{
 									"key": "search",
 									"value": "group",
 									"disabled": true
+								},
+								{
+									"key": "shopType",
+									"value": "live-shopping"
 								}
 							]
 						}

@@ -109,7 +109,7 @@ module.exports= {
         
                 const data = await Transaction.create(dataTransaction);
                 let dataTransactionDetail={
-                    paid_amount:req.body.price,
+                    paid_amount:req.body.price * -1,
                     shop_name:req.body.name,
                     description:null,
                     transaction_id:data.id
