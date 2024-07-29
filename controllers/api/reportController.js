@@ -43,6 +43,7 @@ module.exports={
                         name : {$first : "$customer.name"},
                         phone : {$first: "$customer.phone"},
                         instagram : {$first : "$customer.instagram"},
+                        tiktok : {$first:"$customer.tiktok"},
                         bill : {$sum: "$bill"},
                         
                         
@@ -54,6 +55,9 @@ module.exports={
                 {
                     $limit:pageSize
                 },
+                {
+                    $sort:{name:1}
+                }
                 
             ])
 
@@ -167,11 +171,15 @@ module.exports={
                               product_name: "$product_name",
                               product_qty: "$product_qty",
                               price : "$price",
-                              status:"$status"
+                              status:"$status",
+                              shopping_date:"$shopping_date"
                             }
                         },
                         
                     }
+                },
+                {
+                    $sort:{name:1,shopping_date:-1}
                 }
             ])
             const totalBill= await Shopping.aggregate([
@@ -304,6 +312,9 @@ module.exports={
                         },
                         
                     }
+                },
+                {
+                    $sort:{name:1,date:-1}
                 }
             ])
             const transaction = await TransactionDetail.aggregate([
@@ -365,6 +376,9 @@ module.exports={
                         date : {$first : "$transaction.issued_at"},
                         payment_name : {$first:"$paymentmethod.name"}
                     }
+                },
+                {
+                    $sort:{date:-1}
                 }
             ])
 
@@ -378,6 +392,9 @@ module.exports={
         try {
             let data = {};
             const category = await ShopCategory.findById(req.params.id);
+            if(!category){
+                return res.status(404).json({success:false, message:"Shop Category Not Found"})
+            }
             data.name = category.name;
             data.batch = category.batch;
             const shopping = await Shopping.find({shop_category_id:req.params.id});
@@ -444,11 +461,15 @@ module.exports={
                               product_name: "$product_name",
                               product_qty: "$product_qty",
                               price : "$price",
-                              status:"$status"
+                              status:"$status",
+                              date:"$issued_at"
                             }
                         },
                         
                     }
+                },
+                {
+                    $sort:{date:-1,name:1}
                 }
             ])
             data.detail = dataShopping;
@@ -485,7 +506,7 @@ module.exports={
             console.log(filter)
             const data = await ShopCategory.find(filter)
                 .skip((page > 0 ? page - 1 : page)*pageSize)
-                .limit(pageSize);
+                .limit(pageSize).sort({date:-1});
             const count = await ShopCategory.find(filter).countDocuments();
             
             return res.status(200).json({

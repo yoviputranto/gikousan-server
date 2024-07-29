@@ -116,7 +116,7 @@ module.exports = {
             }
             const data = await PaymentMethod.find(filter)
                 .skip((page > 0 ? page - 1 : page)*pageSize)
-                .limit(pageSize);
+                .limit(pageSize).sort({name:1,is_active:-1});
             const count = await PaymentMethod.find(filter).countDocuments();
             console.log(data);
             // if(data.length == 0){

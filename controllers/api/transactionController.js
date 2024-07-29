@@ -218,7 +218,7 @@ module.exports= {
             const pageSize = parseInt(req.query.pageSize,10);
             const data = await Transaction.find()
                 .skip((page > 0 ? page - 1 : page)*pageSize)
-                .limit(pageSize);
+                .limit(pageSize).sort({issued_at:-1});
             const count = await Transaction.countDocuments();
             console.log(data);
             // if(data.length == 0){
@@ -314,6 +314,9 @@ module.exports= {
                             $sum:"$transaction.transactiondetail.paid_amount"
                         }
                     }
+                },
+                {
+                    $sort:{name:1}
                 }
             ])
             //console.log(test);
@@ -357,6 +360,9 @@ module.exports= {
                         total : {$sum : "$paid_amount"},
                         
                     }
+                },
+                {
+                    $sort:{name:1}
                 }
             ])
             paymentmethodWithTransaction = paymentmethodWithTransaction.concat(paymentmethodWithoutTransaction)
@@ -461,6 +467,9 @@ module.exports= {
                         date : {$first : "$transaction.issued_at"},
                         payment_name : {$first:"$paymentmethod.name"}
                     }
+                },
+                {
+                    $sort:{date:-1}
                 }
             ])
             console.log(transaction)

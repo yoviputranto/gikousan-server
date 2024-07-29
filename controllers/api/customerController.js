@@ -83,7 +83,7 @@ module.exports = {
             }
             const data = await Customer.find(filter)
                 .skip((page > 0 ? page - 1 : page)*pageSize)
-                .limit(pageSize);
+                .limit(pageSize).sort({name:1});
             const count = await Customer.find(filter).countDocuments();
             console.log(data);
             // if(data.length == 0){

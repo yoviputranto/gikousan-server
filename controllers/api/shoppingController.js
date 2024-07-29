@@ -144,6 +144,9 @@ module.exports= {
             if(req.query.customer){
                 console.log(req.query.customer)
                 const dataCustomer = await Customer.findById(req.query.customer)
+                if(!dataCustomer){
+                    res.status(404).json({success:false, message:"Customer Not Found"})
+                }
                 console.log(dataCustomer)
                 customer = dataCustomer._id;
             }
@@ -186,7 +189,16 @@ module.exports= {
                     $limit:pageSize
                 },
                 {
-                    $project: {"shopcategory":0}
+                    $project: {
+                        "shopcategory.batch":0,
+                        "shopcategory.place":0,
+                        "shopcategory._id":0,
+                        "shopcategory.__v":0,
+                        "shopcategory.shop_type_id":0
+                    }
+                },
+                {
+                    $sort:{shopping_date:-1}
                 }
             ])
             const count = await Shopping.aggregate([

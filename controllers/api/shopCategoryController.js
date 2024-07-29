@@ -143,7 +143,7 @@ module.exports= {
             console.log(filter)
             const data = await ShopCategory.find(filter)
                 .skip((page > 0 ? page - 1 : page)*pageSize)
-                .limit(pageSize);
+                .limit(pageSize).sort({date:-1});
             const count = await ShopCategory.find(filter).countDocuments();
             
             return res.status(200).json({

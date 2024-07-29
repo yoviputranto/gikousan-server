@@ -88,7 +88,7 @@ module.exports={
             }
             const data = await Admin.find(filter)
                 .skip((page > 0 ? page - 1 : page)*pageSize)
-                .limit(pageSize);
+                .limit(pageSize).sort({name:1});
             const count = await Admin.find(filter).countDocuments();
             console.log(data);
             // if(data.length == 0){

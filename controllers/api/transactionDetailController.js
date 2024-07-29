@@ -136,7 +136,7 @@ var transactionDetailController= {
             const filterTransaction = transactionId ? {transaction_id : transactionId}: null
             const data = await TransactionDetail.find(filterTransaction)
                 .skip((page > 0 ? page - 1 : page)*pageSize)
-                .limit(pageSize);
+                .limit(pageSize).sort({shop_name:1});
             const count = await TransactionDetail.find(filterTransaction).countDocuments();
             console.log(data);
             // if(data.length == 0){
