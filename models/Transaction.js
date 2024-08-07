@@ -21,6 +21,9 @@ const transactionSchema = new mongoose.Schema({
     }],
     issued_at:{
         type: Date
+    },
+    created_at:{
+        type:Date
     }
 })
 

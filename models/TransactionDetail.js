@@ -21,6 +21,9 @@ const transactiondetailSchema = new mongoose.Schema({
         type: ObjectId,
         ref: 'Customer'
     }],
+    created_at:{
+        type:Date
+    }
 })
 
 module.exports = mongoose.model('TransactionDetail', transactiondetailSchema);

@@ -14,6 +14,9 @@ const customerSchema = new mongoose.Schema({
     },
     tiktok:{
         type: String
+    },
+    created_at:{
+        type: Date
     }
 })
 

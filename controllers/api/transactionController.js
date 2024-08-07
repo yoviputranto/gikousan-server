@@ -46,7 +46,8 @@ module.exports= {
                     issued_at : issued_at,
                     admin_id : admin_id,
                     payment_method_id : payment_method_id,
-                    customer_id : customer_id
+                    customer_id : customer_id,
+                    created_at: new Date()
                 }
                 console.log(dataTransaction)
                 const validation = new Validator(dataTransaction,validationRulesInTransaction);
@@ -75,7 +76,8 @@ module.exports= {
                         shop_name:transaction_details[i].product_name,
                         description:null,
                         transaction_id:data.id,
-                        shopping_id:transaction_details[i].shopping_id
+                        shopping_id:transaction_details[i].shopping_id,
+                        created_at: new Date()
                     }
                     let validationDetail = new Validator(dataTransactionDetail,validationRulesTransactionDetail);
                     if (validationDetail.fails()) {
@@ -91,6 +93,7 @@ module.exports= {
                     issued_at : issued_at,
                     admin_id : admin_id,
                     payment_method_id : payment_method_id,
+                    created_at: new Date()
                 }
                 console.log(dataTransaction)
                 const validation = new Validator(dataTransaction,validationRulesOutTransaction);
@@ -112,7 +115,8 @@ module.exports= {
                     paid_amount:req.body.price * -1,
                     shop_name:req.body.name,
                     description:null,
-                    transaction_id:data.id
+                    transaction_id:data.id,
+                    created_at: new Date()
                 }
                 let validationDetail = new Validator(dataTransactionDetail,validationRulesTransactionDetail);
                 if (validationDetail.fails()) {
@@ -316,7 +320,7 @@ module.exports= {
                     }
                 },
                 {
-                    $sort:{name:1}
+                    $sort:{created_at:-1,name:1}
                 }
             ])
             //console.log(test);
@@ -362,7 +366,7 @@ module.exports= {
                     }
                 },
                 {
-                    $sort:{name:1}
+                    $sort:{created_at:-1,name:1}
                 }
             ])
             paymentmethodWithTransaction = paymentmethodWithTransaction.concat(paymentmethodWithoutTransaction)

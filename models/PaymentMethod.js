@@ -13,6 +13,9 @@ const paymentmethodSchema = new mongoose.Schema({
     },
     is_active:{
         type:Boolean
+    },
+    created_at:{
+        type:Date
     }
 })
 

@@ -40,7 +40,8 @@ module.exports= {
                 category : category,
                 status : status,
                 bill : price,
-                shopping_date : new Date()
+                shopping_date : new Date(),
+                created_at: new Date()
             }
             const validation = new Validator(dataShopping,validationRules);
             if (validation.fails()) {

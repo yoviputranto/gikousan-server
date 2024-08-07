@@ -20,6 +20,10 @@ const shopcategorySchema = new mongoose.Schema({
         ref: 'ShopType'
     }],
     date:{
+        type:Date,
+        required: true
+    },
+    created_at:{
         type:Date
     }
 })

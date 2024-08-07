@@ -31,7 +31,8 @@ var transactionDetailController= {
                 shop_name : shop_name,
                 description : description,
                 transaction_id : transaction_id,
-                shopping_id : shopping_id
+                shopping_id : shopping_id,
+                created_at: new Date()
             }
             const validation = new Validator(dataTransactionDetail,validationRules);
             if (validation.fails()) {
@@ -136,7 +137,7 @@ var transactionDetailController= {
             const filterTransaction = transactionId ? {transaction_id : transactionId}: null
             const data = await TransactionDetail.find(filterTransaction)
                 .skip((page > 0 ? page - 1 : page)*pageSize)
-                .limit(pageSize).sort({shop_name:1});
+                .limit(pageSize).sort({created_at:-1,shop_name:1});
             const count = await TransactionDetail.find(filterTransaction).countDocuments();
             console.log(data);
             // if(data.length == 0){
@@ -233,6 +234,9 @@ var transactionDetailController= {
                         total_bill:{$sum : "$shopping.bill"}
                         
                     }
+                },
+                {
+                    $sort:{created_at:-1}
                 }
             ])
             return res.status(200).json({

@@ -36,6 +36,9 @@ const shoppingSchema = new mongoose.Schema({
     },
     shopping_date:{
         type: Date
+    },
+    created_at:{
+        type:Date
     }
 })
 

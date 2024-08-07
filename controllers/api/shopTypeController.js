@@ -24,7 +24,8 @@ module.exports={
             
             const data= await ShopType.create({
                 name,
-                description
+                description,
+                created_at: new Date()
             });
     
             res.status(201).json({ success:true, message : "Data created", data});
@@ -77,7 +78,7 @@ module.exports={
             }
             const data = await ShopType.find(filter)
                 .skip((page > 0 ? page - 1 : page)*pageSize)
-                .limit(pageSize).sort({name:1});
+                .limit(pageSize).sort({created_at:-1,name:1});
             const count = await ShopType.find(filter).countDocuments();
             console.log(data);
             // if(data.length == 0){

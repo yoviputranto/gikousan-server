@@ -24,7 +24,8 @@ module.exports = {
             const dataPaymentMethod = {
                 name : name,
                 description : description,
-                is_active : is_active
+                is_active : is_active,
+                created_at: new Date()
             }
             const validation = new Validator(dataPaymentMethod,validationRules);
             if (validation.fails()) {
@@ -116,7 +117,7 @@ module.exports = {
             }
             const data = await PaymentMethod.find(filter)
                 .skip((page > 0 ? page - 1 : page)*pageSize)
-                .limit(pageSize).sort({name:1,is_active:-1});
+                .limit(pageSize).sort({created_at:-1,name:1,is_active:-1});
             const count = await PaymentMethod.find(filter).countDocuments();
             console.log(data);
             // if(data.length == 0){

@@ -33,7 +33,8 @@ module.exports= {
                 place : place,
                 batch : batch,
                 shop_type_id : shop_type_id,
-                date : date
+                date : date,
+                created_at: new Date()
                 // product_image : `images/${req.file.filename}`
             }
             console.log(dataShopCategory);
@@ -143,7 +144,7 @@ module.exports= {
             console.log(filter)
             const data = await ShopCategory.find(filter)
                 .skip((page > 0 ? page - 1 : page)*pageSize)
-                .limit(pageSize).sort({date:-1});
+                .limit(pageSize).sort({created_at:-1});
             const count = await ShopCategory.find(filter).countDocuments();
             
             return res.status(200).json({
